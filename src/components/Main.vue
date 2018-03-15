@@ -1,21 +1,18 @@
 <template>
     <v-container grid-list-md text-xs-center>
-        <h4>main</h4>
         <v-layout row wrap>
             <v-flex xs12>
-                
                 <flash-cards></flash-cards>
-                
             </v-flex>
         </v-layout>
         <v-layout row wrap>
-            <v-flex xs6>
-                <v-card>
+            <v-flex xs4>
+                <v-card height="300px">
                     <timer></timer>
                 </v-card>
             </v-flex>
-            <v-flex xs6>
-                <v-card>
+            <v-flex xs8>
+                <v-card height="300px">
                     <evaluate></evaluate>
                 </v-card>
             </v-flex>

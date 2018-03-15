@@ -35,9 +35,9 @@
       <v-btn icon @click.stop="clipped = !clipped">
         <v-icon>web</v-icon>
       </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
+      <!-- <v-btn icon @click.stop="fixed = !fixed">
         <v-icon>remove</v-icon>
-      </v-btn>
+      </v-btn> -->
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
       <!-- <v-btn icon @click.stop="rightDrawer = !rightDrawer">
@@ -64,7 +64,7 @@
       </v-list> -->
     <!-- </v-navigation-drawer> -->
     <v-footer :fixed="fixed" app>
-      <span>&copy; 2018</span>
+      <span>&nbsp; &copy; 2018</span>
     </v-footer>
   </v-app>
 </template>
@@ -77,7 +77,7 @@ export default {
   data () {
     return {
       clipped: false,
-      drawer: true,
+      drawer: false,
       fixed: false,
       items: [{
         icon: 'bubble_chart',
@@ -92,3 +92,13 @@ export default {
   name: 'App'
 }
 </script>
+
+<style lang="scss">
+    h4 {
+        font-size: 28px;
+    }
+
+    p.card-text {
+        font-size: 22px;
+    }
+</style>
