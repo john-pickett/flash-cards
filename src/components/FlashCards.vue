@@ -1,61 +1,39 @@
 <template>
     <div>
-      <div v-if="currentLesson === null">
-            Loading...
-      </div>
-      <div v-if="currentLesson !== null">
-            <v-layout row wrap>
-                <v-flex xs-6>
-                    <v-card height="300px">
-                        <span class="headline">{{currentLesson.title || "Placeholder"}}</span>
-                        <v-card-text>
-                            <p class="card-text text-center">{{currentWord}}</p>
-                        </v-card-text>
-                        <v-card-actions>
-                            <v-btn @click="startLesson" color="blue">Start</v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-flex>
-                <v-flex xs-6>
-                    <v-card height="300px">
-                        <span class="headline">English</span>
-                        <div v-if="timeUp" id="time-up">
-                            Time's Up!
-                        </div>
-                        <v-radio-group v-model="currentGuess">
-                            <v-radio
-                                v-for="n, i in randomAnswers"
-                                :key="n"
-                                :label="`${n}`"
-                                :value="n"
-                                :id="`radio${i}`"
-                                
-                            ></v-radio>
-                        </v-radio-group>
-                        <!-- <div class="form-group">
-                            <input @click="evalGuess($event)" name="group2" type="radio" id="radio1" :value='randomAnswers[0]' />
-                            <label class="card-text" for="radio1">{{randomAnswers[0]}}</label>
-                        </div>
-                        <div class="form-group">
-                            <input @click="evalGuess($event)" name="group2" type="radio" id="radio2" :value='randomAnswers[1]' />
-                            <label class="card-text" for="radio2">{{randomAnswers[1]}}</label>
-                        </div>
-                        <div class="form-group">
-                            <input @click="evalGuess($event)" name="group2" type="radio" id="radio3" :value='randomAnswers[2]' />
-                            <label class="card-text" for="radio3">{{randomAnswers[2]}}</label>
-                        </div>
-                        <div class="form-group">
-                            <input @click="evalGuess($event)" name="group2" type="radio" id="radio4" :value='randomAnswers[3]' />
-                            <label class="card-text" for="radio4">{{randomAnswers[3]}}</label>
-                        </div>
-                        <div class="form-group">
-                            <input @click="evalGuess($event)" name="group2" type="radio" id="radio5" :value='randomAnswers[4]' />
-                            <label class="card-text" for="radio5">{{randomAnswers[4]}}</label>
-                        </div> -->
-                    </v-card>
-                </v-flex>
-            </v-layout>
-      </div>
+        <div v-if="currentLesson === null">
+                Loading...
+        </div>
+        <v-layout row wrap v-if="currentLesson !== null">
+            <v-flex xs-6>
+                <v-card height="300px" id="foreign-card" class="flash-cards">
+                    <span class="headline">{{currentLesson.title || "Placeholder"}}</span>
+                    <v-card-text>
+                        <p class="card-text text-center">{{currentWord}}</p>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-btn v-if="!lessonRunning" @click="startLesson" color="blue" id="start-btn">Start</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-flex>
+            <v-flex xs-6>
+                <v-card height="300px" id="english-card" class="flash-cards">
+                    <span class="headline">English</span>
+                    <div v-if="timeUp" id="time-up">
+                        Time's Up!
+                    </div>
+                    <v-radio-group v-model="currentGuess">
+                        <v-radio
+                            v-for="n, i in randomAnswers"
+                            :key="n"
+                            :label="`${n}`"
+                            :value="n"
+                            :id="`radio${i}`"
+                            
+                        ></v-radio>
+                    </v-radio-group>
+                </v-card>
+            </v-flex>
+        </v-layout>
     </div>
 </template>
 
@@ -77,6 +55,7 @@ export default {
         currentScore: 0,
         // currentLesson: 'hey',
         timeUp: false,
+        lessonRunning: false,
         currentLesson: {
             title: "test",
             cards: [
@@ -128,6 +107,7 @@ export default {
         return Math.floor(Math.random() * range);
       },
       setNewLesson: function () {
+        this.lessonRunning = true;
         this.score = 0;
         eventBus.$emit( 'scoreReset', 0 );
         eventBus.$emit( 'startTimer', true);
@@ -156,6 +136,9 @@ export default {
       },
       currentGuess: function () {
         console.log(this.currentGuess);
+        if (this.currentGuess === null) {
+            return;
+        }
         if (this.currentLesson.answers.indexOf(this.currentGuess) === this.counter) {
             console.log('correct')
             this.currentScore += 10;
@@ -167,9 +150,8 @@ export default {
         
         let that = this;
         setTimeout(function () {
-          that.nextCard();
-        //   var elem = document.getElementById(event.target.id);
-        //   elem.checked = false;
+            that.currentGuess = null;
+            that.nextCard();
         }, 1000);
       },
       currentLesson: function () {
@@ -183,6 +165,16 @@ export default {
 
   input {
     margin-right: 10px;
+  }
+
+  #foreign-card {
+      position: relative;
+  }
+
+  #start-btn {
+      position: absolute !important;
+      bottom: 10px !important;
+      right: 10px !important;
   }
   
 </style>

@@ -98,7 +98,13 @@ export default {
         font-size: 28px;
     }
 
-    p.card-text {
+    p.card-text, span.card-text {
         font-size: 22px;
+    }
+
+    
+
+    .flash-cards {
+      padding: 20px 20px 0 20px;
     }
 </style>

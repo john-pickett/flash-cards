@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h4 class="text-center">Scoring</h4>
+        <p class="headline">Scoring</p>
         <span class="card-text">Your Score: {{score}}</span>
         <span v-if="answerCorrect === true" class="card-text">Correct!</span>
         <span v-if="answerCorrect === false" class="card-text">Nope!</span>

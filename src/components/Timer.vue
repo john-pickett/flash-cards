@@ -1,12 +1,8 @@
 <template>
-    <md-card>
-        <md-card-header>
-            <h4 class="text-center">Timer</h4>
-        </md-card-header>
-        <md-card-content>
-            <p class="card-text text-center">{{timeRemaining}}</p>
-        </md-card-content>
-    </md-card>
+    <div>
+        <span class="headline">Timer</span>
+        <p class="card-text text-center">{{timeRemaining}}</p>
+    </div>
 </template>
 
 <script>

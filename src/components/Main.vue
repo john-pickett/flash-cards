@@ -7,12 +7,12 @@
         </v-layout>
         <v-layout row wrap>
             <v-flex xs4>
-                <v-card height="300px">
+                <v-card height="300px" class="flash-cards">
                     <timer></timer>
                 </v-card>
             </v-flex>
             <v-flex xs8>
-                <v-card height="300px">
+                <v-card height="300px" class="flash-cards">
                     <evaluate></evaluate>
                 </v-card>
             </v-flex>
@@ -38,5 +38,6 @@ export default {
 </script>
 
 <style>
+
 
 </style>
