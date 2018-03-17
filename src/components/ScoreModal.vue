@@ -31,7 +31,6 @@
                     </v-list> -->
                 </v-menu>
             </v-toolbar>
-            <span class="headline text-md-center">Time's Up!</span> 
             <v-layout row wrap class="pa-3">
                 <v-flex md6>
                     <v-card class="text-md-center pa-2 mr-2" height="100%">
@@ -90,6 +89,7 @@ export default {
       },
     },
     created () {
+        // from TimeModal
         eventBus.$on('openScoreModal', data => {
             this.dialog = data
         });

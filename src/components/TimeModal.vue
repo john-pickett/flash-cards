@@ -1,12 +1,14 @@
 <template>
-    <v-dialog v-model="dialog" max-width="500px" persistent=true>
+    <v-dialog v-model="dialog" max-width="500px" persistent="true">
         <v-card>
           <v-card-title>
             <span class="headline text-xs-center">Time's Up!</span>
           </v-card-title>
-          
+          <v-card-text>
+              You scored {{userScore}} points!
+          </v-card-text>
           <v-card-actions>
-            <v-btn color="primary" flat @click.stop="dialog=false">Close</v-btn>
+            <v-btn color="primary" flat @click="closeModal()">Close</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -18,15 +20,22 @@ import {eventBus} from '@/main.js'
 export default {
     data () {
         return {
-            dialog: false
+            dialog: false,
+            userScore: 0
+        }
+    },
+    methods: {
+        closeModal () {
+            console.log('closing');
+            this.dialog = false;
+            // to ScoreModal
+            eventBus.$emit('openScoreModal', true);
         }
     },
     created () {
         eventBus.$on('openTimeModal', data => {
-            this.dialog = data;
-            setTimeout( () => {
-                eventBus.$emit('openScoreModal', true);
-            }, 2000);
+            this.userScore = data[1];
+            this.dialog = data[0];
         })
     }
 }

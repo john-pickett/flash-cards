@@ -147,7 +147,7 @@ export default {
       // from timer in Timer
       eventBus.$on('timeUp', data => {
           // to TimeModal
-          eventBus.$emit('openTimeModal', true)
+          eventBus.$emit('openTimeModal', [true, this.currentScore]);
       })
     },
     watch: {
