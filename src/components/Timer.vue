@@ -33,19 +33,17 @@ export default {
                 if (timeLeft <= 1000) {
                     this.timeRemaining = "Time's Up!"
                     clearInterval(x);
-                    // emit time's up to open modal
+                    // to FlashCards
                     eventBus.$emit('timeUp', true);
                     }
                 }, 1000);
         }
     },
     created () {
+        // from setNewLesson in FlashCards
         eventBus.$on( 'startTimer', data => {
             this.timer();
         })
-    },
-    mounted () {
-        // this.timer();
     }
 }
 </script>

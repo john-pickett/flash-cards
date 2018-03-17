@@ -11,7 +11,8 @@
                         <p class="card-text text-center">{{currentWord}}</p>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn v-if="!lessonRunning" @click="startLesson" color="blue" id="start-btn">Start</v-btn>
+                        <v-btn v-if="!lessonRunning" @click="startLesson" color="blue" id="start-btn">Start!</v-btn>
+                        <!-- <v-btn color="primary" dark @click.stop="openScoreModal">Open Dialog 1</v-btn> -->
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -34,17 +35,21 @@
                 </v-card>
             </v-flex>
         </v-layout>
+        <score-modal :userScore="currentScore" :highScores="highScores"></score-modal>
+        <time-modal></time-modal>
     </div>
 </template>
 
 <script>
 /* eslint-disable */
 import { eventBus } from '@/main.js';
-
+import ScoreModal from '@/components/ScoreModal';
+import TimeModal from '@/components/TimeModal';
 
 export default {
     components: {
-        
+        ScoreModal,
+        TimeModal
     },
     data () {
       return {
@@ -56,6 +61,14 @@ export default {
         // currentLesson: 'hey',
         timeUp: false,
         lessonRunning: false,
+        dialog: false,
+        userName: '',
+        highScores: [
+            { name: "John", score: 100 },
+            { name: "Mary", score: 90 },
+            { name: "Lucy", score: 80 },
+            { name: "David", score: 70 }
+        ],
         currentLesson: {
             title: "test",
             cards: [
@@ -109,7 +122,9 @@ export default {
       setNewLesson: function () {
         this.lessonRunning = true;
         this.score = 0;
+        // to Evaluate
         eventBus.$emit( 'scoreReset', 0 );
+        // to Timer
         eventBus.$emit( 'startTimer', true);
         this.counter = 0;
         this.displayCards();
@@ -129,6 +144,11 @@ export default {
         // console.log('receiving lesson data');
         this.currentLesson = data;
       });
+      // from timer in Timer
+      eventBus.$on('timeUp', data => {
+          // to TimeModal
+          eventBus.$emit('openTimeModal', true)
+      })
     },
     watch: {
       counter: function () {

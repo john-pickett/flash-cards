@@ -15,6 +15,11 @@ import {
   VToolbar,
   VCard,
   VRadioGroup,
+  VDialog,
+  VTooltip,
+  VCheckbox,
+  VMenu,
+  VTextField,
   transitions
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
@@ -31,6 +36,11 @@ Vue.use(Vuetify, {
     VToolbar,
     VCard,
     VRadioGroup,
+    VDialog,
+    VTooltip,
+    VCheckbox,
+    VMenu,
+    VTextField,
     transitions
   }
 })

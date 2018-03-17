@@ -40,6 +40,7 @@ export default {
                 this.resetEval();
             }
         });
+        // from setNewLesson in FlashCards
         eventBus.$on( 'scoreReset', data => {
             this.score = data;
         });

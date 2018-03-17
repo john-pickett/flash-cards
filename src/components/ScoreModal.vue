@@ -1,34 +1,99 @@
 <template>
-  <!-- Modal Component -->
-        <modal v-if="showModal"> 
-            <div slot="body">
-                <div class="md-layout-row">
-                    <h2>High Scores</h2>
-                    <div class="md-layout">
-                        <div class="md-layout-item md-size-50">
-                        <ul v-for="item in highScores">
-                            <li>{{item.name}} : {{item.score}}</li>
-                        </ul>
-                        </div>
-                        <div class="md-layout-item md-size-50">
-                            <h2>Save Your Score</h2>
-                            <p>You scored {{currentScore}} points!</p>
-                            <md-field>
-                                <label>Enter Your Name</label>
-                                <md-input v-model="userName"></md-input>
-                            </md-field>
-                        </div>
-                        <md-button @click="saveScore" class="md-raised">Save</md-button>
-                        <md-button @click="toggleModal" class="md-raised">Close</md-button>
-                    </div>
-                </div>
-            </div>
-        </modal>
+  <v-dialog
+        v-model="dialog"
+        fullscreen
+        transition="dialog-bottom-transition"
+        :overlay="false"
+        scrollable
+      >
+        <v-card tile>
+            
+            <v-toolbar card dark color="primary">
+                <v-toolbar-title>High Scores</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-toolbar-items>
+                    <v-btn dark flat @click.native="dialog = false">
+                        <v-icon>close</v-icon>
+                    </v-btn>
+                    <!-- <v-btn icon @click.native="dialog = false" dark>
+                        
+                    </v-btn> -->
+                </v-toolbar-items>
+                <v-menu bottom right offset-y>
+                    <!-- <v-btn slot="activator" dark icon>
+                        <v-icon>more_vert</v-icon>
+                    </v-btn> -->
+                    <!-- this is what appears in the dropdown menu -->
+                    <!-- <v-list>
+                        <v-list-tile v-for="(item, i) in items" :key="i" @click="">
+                            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                        </v-list-tile>
+                    </v-list> -->
+                </v-menu>
+            </v-toolbar>
+            <span class="headline text-md-center">Time's Up!</span> 
+            <v-layout row wrap class="pa-3">
+                <v-flex md6>
+                    <v-card class="text-md-center pa-2 mr-2" height="100%">
+                        <span class="headline">High Scores</span>
+                        <v-list-tile v-for="(item, i) in highScores" :key="i" class="text-md-center">
+                            <v-list-tile-title class="text-md-center">{{item.name}} : {{item.score}}</v-list-tile-title>
+                        </v-list-tile>
+                        <v-spacer class="py-2"></v-spacer>
+                        <p class="headline">Save Your Score?</p>
+                        <v-layout row>
+                            <v-flex xs8 offset-xs1>
+                                <v-text-field
+                                name="input-1"
+                                label="Your Name"
+                                id="userName"
+                                v-model="userName"
+                                ></v-text-field>
+                            </v-flex>
+                            <v-flex>
+                                Score: {{userScore}}
+                            </v-flex>
+                        </v-layout>
+                        <v-layout row>
+                            <v-flex sm-3>
+                                <v-btn dark @click.native="saveMyScore">Save</v-btn>
+                            </v-flex>
+                        </v-layout>
+                    </v-card>
+                </v-flex>
+                <v-flex md6>
+                    <v-card class="text-md-center" height="100%">
+                        <span class="headline">Second Card</span>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+          <div style="flex: 1 1 auto;"/>
+        </v-card>
+      </v-dialog>
 </template>
 
 <script>
+import { eventBus } from '@/main.js';
+import axios from 'axios';
+
 export default {
-  
+    props: ['userScore', 'highScores'],
+    data () {
+        return {
+            dialog: false,
+            username: ''
+        }
+    },
+    methods: {
+        saveMyScore () {
+          console.log('saving score' + this.userName + this.userScore)
+      },
+    },
+    created () {
+        eventBus.$on('openScoreModal', data => {
+            this.dialog = data
+        });
+    }
 }
 </script>
 
