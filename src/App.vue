@@ -14,6 +14,7 @@
           value="true"
           v-for="(item, i) in items"
           :key="i"
+          :href="item.url"
         >
           <v-list-tile-action>
             <v-icon v-html="item.icon"></v-icon>
@@ -79,10 +80,10 @@ export default {
       clipped: false,
       drawer: false,
       fixed: false,
-      items: [{
-        icon: 'bubble_chart',
-        title: 'Inspire'
-      }],
+      items: [
+          { icon: 'bubble_chart', title: 'Flash Cards', url: '/#/' },
+          { icon: 'playlist_add', title: 'Create Lesson', url: '/#/new-lesson' }
+      ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
