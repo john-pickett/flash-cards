@@ -1,41 +1,156 @@
 <template>
-    <div>
-        <h2>Create New Lesson</h2>
-        <md-field >
-            <label>Title Here</label>
-            <md-input v-model="title"></md-input>
-            <span class="md-helper-text">Title</span>
-        </md-field>
-        <md-field >
-            <label>Timer</label>
-            <md-input v-model="timer"></md-input>
-            <span class="md-helper-text">Timer</span>
-        </md-field>
-        <div class="md-layout">
-            <div class="md-layout-item" id="cardField">
-                <md-field id="test-field">
-                    <label>Enter Text Here...</label>
-                    <md-input v-model="cards.card1" class="card-input"></md-input>
-                    <span class="md-helper-text">Card 1</span>
-                </md-field>
-            </div>
-            <div class="md-layout-item" id="answerField">
-                <md-field>
-                    <label>Enter Text Here...</label>
-                    <md-input v-model="answers.answer1" class="answer-input"></md-input>
-                    <span class="md-helper-text">Answer 1</span>
-                </md-field>
-            </div>
-            <md-button class="md-fab md-primary" @click="createNewRow">
-                <md-icon>add</md-icon>
-            </md-button>
-        </div>
-        <div class="md-layout">
-            <div class="md-layout-item">
-                <md-button class="md-primary md-raised" @click="saveLesson">Save Lesson</md-button>
-            </div>
-        </div>
-    </div>
+    <v-container grid-list-md>
+        <v-layout row wrap>
+            <v-flex xs-6>
+                <v-card class="pa-3">
+                    <span class="headline">Spanish Cards</span>
+                    <p>Enter the Spanish words to guess here.</p>
+                    <v-text-field
+                        name="cards1"
+                        label="Card 1"
+                        id="card1"
+                        v-model="cards[0]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="cards2"
+                        label="Card 2"
+                        id="card2"
+                        v-model="cards[1]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="cards3"
+                        label="Card 3"
+                        id="card3"
+                        v-model="cards[2]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="cards4"
+                        label="Card 4"
+                        id="card4"
+                        v-model="cards[3]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="cards5"
+                        label="Card 5"
+                        id="card5"
+                        v-model="cards[4]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="cards6"
+                        label="Card 6"
+                        id="card6"
+                        v-model="cards[5]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="cards7"
+                        label="Card 7"
+                        id="card7"
+                        v-model="cards[6]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="cards8"
+                        label="Card 8"
+                        id="card8"
+                        v-model="cards[7]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="cards9"
+                        label="Card 9"
+                        id="card9"
+                        v-model="cards[8]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="cards10"
+                        label="Card 10"
+                        id="card10"
+                        v-model="cards[9]"
+                    ></v-text-field>
+                </v-card>
+            </v-flex>
+            <v-flex xs-6>
+                <v-card class="pa-3">
+                    <span class="headline">Answers Cards</span>
+                    <p>Enter the English answers here.</p>
+                    <v-text-field
+                        name="answers1"
+                        label="Answer 1"
+                        id="answer1"
+                        v-model="answers[0]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="answers2"
+                        label="Answer 2"
+                        id="answer2"
+                        v-model="answers[1]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="answers3"
+                        label="Answer 3"
+                        id="answer3"
+                        v-model="answers[2]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="answers4"
+                        label="Answer 4"
+                        id="answer4"
+                        v-model="answers[3]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="answers5"
+                        label="Answer 5"
+                        id="answer5"
+                        v-model="answers[4]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="answers6"
+                        label="Answer 6"
+                        id="answer6"
+                        v-model="answers[5]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="answers7"
+                        label="Answer 7"
+                        id="answer7"
+                        v-model="answers[6]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="answers8"
+                        label="Answer 8"
+                        id="answer8"
+                        v-model="answers[7]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="answers9"
+                        label="Answer 9"
+                        id="answer9"
+                        v-model="answers[8]"
+                    ></v-text-field>
+                    <v-text-field
+                        name="answers10"
+                        label="Answer 10"
+                        id="answer10"
+                        v-model="answers[9]"
+                    ></v-text-field>
+                </v-card>
+            </v-flex>
+        </v-layout>
+        <v-layout row>
+            <v-flex xs-12>
+                <v-card class="pa-3">
+                    <v-text-field
+                        name="title"
+                        label="Lesson Title"
+                        id="title"
+                        v-model="title"
+                    ></v-text-field>
+                    <v-btn class="primary">
+                    <v-icon>add</v-icon>
+                </v-btn>
+                <v-btn class="primary" @click="saveLesson">Save Lesson</v-btn>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
@@ -63,140 +178,26 @@ export default {
         }
     },
     methods: {
-        saveLesson: function () {
-            console.log('saving lesson');
-
-            let cardInputs = document.getElementsByClassName('card-input');
-            for (let i = 0; i < cardInputs.length; i++) {
-                this.cards.push(cardInputs[i].value)
+        saveLesson () {
+            console.log('saving lesson')
+            let lessonData = {
+                title: this.title,
+                length: this.cards.length,
+                timer: this.timer,
+                cards: this.cards,
+                answers: this.answers
             }
-
-            let answerInputs = document.getElementsByClassName('answer-input');
-            for (let i = 0; i < answerInputs.length; i++) {
-                this.answers.push(answerInputs[i].value)
-            }
-
-            // console.log(JSON.stringify(lessonData));
+            console.log(JSON.stringify(lessonData, null, 2));
             axios.post('http://localhost:3001/lessons', {
                 title: this.title,
+                length: this.cards.length,
+                timer: this.timer,
                 cards: this.cards,
-                answers: this.answers,
-                length: cardInputs.length,
-                timer: this.timer
-            })
-            .then( (doc) => {
-                console.log(JSON.stringify(doc.data));
+                answers: this.answers
+            }).then( (doc) => {
+                console.log(JSON.stringify(doc.data))
             });
-        },
-        createNewRow: function () {
-            console.log('making new row');
-            this.length += 1;
-
-            var br = document.createElement('br');
-
-            // create new card input
-            // create new md-field
-            // for cards (on left):
-            // <cardField>
-            //   <md-field>
-            //     <label>
-            //     <input>
-            //     <span>
-            var cardsDiv = document.getElementById('cardField');
-            var newCardField = document.createElement('md-field');
-            newCardField.id = "md-field" + this.length;
-            cardsDiv.appendChild(newCardField);
-
-            // new <md-field> element
-            var newFieldDiv = document.getElementById('md-field' + this.length);
-
-            // create new Label
-            var newCardLabel = document.createElement('label');
-            // append label text
-            var labelText = document.createTextNode("Enter Text Here...");
-            newCardLabel.appendChild(labelText);
-            // create 'for' attribute
-            newCardLabel.setAttribute('for', 'md-input' + this.length);
-            // append to DOM
-            newFieldDiv.appendChild(newCardLabel);
-
-            newFieldDiv.appendChild(br);
-            newFieldDiv.appendChild(br);
-
-            // create new Input
-            var newCardInput = document.createElement('input');
-            var cardAtt = document.createAttribute('class');
-            cardAtt.value = "md-input card-input";
-            newCardInput.setAttributeNode(cardAtt);
-            newCardInput.id = "md-input" + this.length;
-
-            var att = document.createAttribute('v-model');
-            att.value = "cards.card" + this.length;
-            newCardInput.setAttributeNode(att);
-            newFieldDiv.appendChild(newCardInput);
-            newFieldDiv.appendChild(br);
-
-            // span 
-            var newCardSpan = document.createElement('span');
-            var spanText = document.createTextNode("Card " + this.length);
-            newCardSpan.appendChild(spanText);
-            newFieldDiv.appendChild(newCardSpan);
-            newFieldDiv.appendChild(br);
-            newFieldDiv.appendChild(br);
-
-            // create new answer input
-            // create new md-field
-            // for answers (on right):
-            // <answerField>
-            //   <md-field>
-            //     <label>
-            //     <input>
-            //     <span>
-            var answerDiv = document.getElementById('answerField');
-            var newAnswerField = document.createElement('md-field');
-            newAnswerField.id = "md-field" + this.length + 'answer';
-            answerDiv.appendChild(newAnswerField);
-
-            // new <md-field> for answers
-            var newAnswerField = document.getElementById('md-field' + this.length + 'answer');
-
-            // create new Label
-            var newAnswerLabel = document.createElement('label');
-            // append label text
-            var answerLabelText = document.createTextNode("Enter Text Here...");
-            newAnswerLabel.appendChild(answerLabelText);
-            // create 'for' attribute
-            newAnswerLabel.setAttribute('for', 'md-input' + this.length + 'answer');
-            // append to DOM
-            newAnswerField.appendChild(newAnswerLabel);
-
-            newAnswerField.appendChild(br);
-            newAnswerField.appendChild(br);
-
-            // create new Input
-            var newAnswerInput = document.createElement('input');
-            var answerAtt = document.createAttribute('class');
-            answerAtt.value = "md-input answer-input";
-            newAnswerInput.setAttributeNode(answerAtt);
-            newAnswerInput.id = "md-input" + this.length + 'answer';
-
-            var vAtt = document.createAttribute('v-model');
-            vAtt.value = "answers.answer" + this.length;
-            newCardInput.setAttributeNode(vAtt);
-
-            newAnswerField.appendChild(newAnswerInput);
-            newAnswerField.appendChild(br);
-            
-
-            // span 
-            var newAnswerSpan = document.createElement('span');
-            var newSpanText = document.createTextNode("Answer " + this.length);
-            newAnswerSpan.appendChild(newSpanText);
-            newAnswerField.appendChild(newAnswerSpan);
-            newAnswerField.appendChild(br);
-
-
-        }, // end of createNewRow
+        }
     }
 }
 
