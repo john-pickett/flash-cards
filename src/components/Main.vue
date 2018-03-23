@@ -32,8 +32,57 @@ export default {
         FlashCards,
         Timer,
         Evaluate
+    },
+    data () {
+        return {
+            // lesson data from Mongo is stored here
+            lessons: [],
+            apiURL: null
+        }
+    },
+    methods: {
+        kebabCase (title) {
+            return title.replace(' ', '-').toLowerCase();
+        },
+        loadLesson (event) {
+            // this is hard-coded for now. hard-coding is bad
+            console.log(event.target.id);
+            if (event.target.id === "spanish-verbs") {
+                eventBus.$emit('newLessonData', this.lessons[0]);
+            } else if (event.target.id === "spanish-colors") {
+                eventBus.$emit('newLessonData', this.lessons[1]);
+            } else if (event.target.id === "spanish-family") {
+                eventBus.$emit('newLessonData', this.lessons[2]);
+            }
+        }
+    },
+    created () {
+        if (process.env.LOCATION === "np") {
+            this.apiURL = 'https://flash-cards-api.herokuapp.com'
+        } else {
+            this.apiURL = 'http://localhost:3001'
+        }
+    },
+    beforeMount () {
+        let that = this;
+        // console.log(' app before mount');
+        axios.get(this.apiURL + '/lessons');
+        console.log('getting ' + this.apiURL)
+        .then( (doc) => {
+            // console.log(JSON.stringify(doc.data, null, 2));
+            doc.data.lessons.forEach( (lesson, i) => {
+                that.lessons.push(lesson);
+                that.menuItems[0].subItems.push({ title: lesson.title });
+                eventBus.$emit('newLessonData', that.lessons[0]);
+            });
+            // console.log('that.lessons: ' + JSON.stringify(that.lessons, null, 2));
+            console.log('received lesson data');
+            that.loading = false;
+        });
+    }, 
+    mounted () {
+        console.log('main mounted')
     }
-  
 }
 </script>
 

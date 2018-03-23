@@ -18,9 +18,9 @@ export default {
         }
     },
     methods: {
-        timer: function () {
+        timer () {
             var begin = new Date().getTime();
-            var timesUp = begin + 30000;
+            var timesUp = begin + 3000;
     
             var x = setInterval( () => {
                 var now = new Date().getTime();
@@ -37,13 +37,20 @@ export default {
                     eventBus.$emit('timeUp', true);
                     }
                 }, 1000);
+        },
+        stopTimer () {
+            this.timeRemaining = null;
+            clearInterval(x);
         }
     },
     created () {
         // from setNewLesson in FlashCards
         eventBus.$on( 'startTimer', data => {
             this.timer();
-        })
+        });
+        eventBus.$on( 'stopTimer', data => {
+            this.stopTimer();
+        });
     }
 }
 </script>

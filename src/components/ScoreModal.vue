@@ -76,23 +76,43 @@ import { eventBus } from '@/main.js';
 import axios from 'axios';
 
 export default {
-    props: ['userScore', 'highScores'],
+    props: [
+        'userScore', 
+        'highScores',
+        'lessonId'
+        ],
     data () {
         return {
             dialog: false,
-            username: ''
+            username: '',
+            apiURL: null
         }
     },
     methods: {
         saveMyScore () {
-          console.log('saving score' + this.userName + this.userScore)
+            console.log('saving score' + this.userName + this.userScore);
+            let name = this.userName;
+            let score = this.userScore;
+            this.highScores.push( { "name": name, "score": score });
+            this.highScores = this.highScores.sort( (a,b) => b.score - a.score);
+            axios.patch(this.apiURL + '/lessons/' + this.lessonId, {
+                "high_scores": this.highScores
+            }).then( (doc) => {
+                console.log(doc.data);
+            });
       },
     },
     created () {
+        if (process.env.LOCATION === "np") {
+            this.apiURL = 'https://flash-cards-api.herokuapp.com'
+        } else {
+            this.apiURL = 'http://localhost:3001'
+        }
         // from TimeModal
         eventBus.$on('openScoreModal', data => {
             this.dialog = data
         });
+
     }
 }
 </script>

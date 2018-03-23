@@ -1,10 +1,7 @@
 <template>
     <v-app>
-        <v-navigation-drawer v-if="loading">
-            Loading... 
-        </v-navigation-drawer>
-        <v-navigation-drawer v-if="!loading"
-        permanent
+        <v-navigation-drawer
+        persistent
         :mini-variant="miniVariant"
         :clipped="clipped"
         v-model="drawer"
@@ -27,7 +24,9 @@
                 </v-list-tile>
                 <v-list-tile v-for="subItem in item.subItems" :key="subItem.title">
                     <v-list-tile-content>
-                        <v-list-tile-title>{{ subItem.title }}</v-list-tile-title>
+                        <v-list-tile-title :id="kebabCase(subItem.title)" @click="loadLesson($event)">
+                            {{ subItem.title }}
+                        </v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
             </v-list-group>
@@ -113,16 +112,18 @@ export default {
     name: 'App',
     data () {
         return {
-            loading: true,
+            apiURL: null,
+            loading: false,
             clipped: false,
             drawer: true,
             fixed: false,
             menuItems: [
                 { id: 'flash-cards', icon: 'bubble_chart', title: 'Flash Cards', url: '/', subItems: [
-                    
+                    { title: 'Verbs' }, { title: 'Colors' }, { title: 'Family' }
                 ]},
                 { id: 'lessons', icon: 'playlist_add', title: 'Create Lesson', url: '/new-lesson', subItems: []}
             ],
+            // lesson data from Mongo is stored here
             lessons: [],
             miniVariant: false,
             right: true,
@@ -131,24 +132,44 @@ export default {
         }
     },
     methods: {
-
+        kebabCase (title) {
+            return title.replace(' ', '-').toLowerCase();
+        },
+        loadLesson (event) {
+            // this is hard-coded for now. hard-coding is bad
+            console.log(event.target.id);
+            if (event.target.id === "spanish-verbs") {
+                eventBus.$emit('newLessonData', this.lessons[0]);
+            } else if (event.target.id === "spanish-colors") {
+                eventBus.$emit('newLessonData', this.lessons[1]);
+            } else if (event.target.id === "spanish-family") {
+                eventBus.$emit('newLessonData', this.lessons[2]);
+            }
+        }
     },
     beforeMount () {
         let that = this;
         // console.log(' app before mount');
-        axios.get('http://localhost:3001/lessons')
+        axios.get(this.apiURL + '/lessons')
         .then( (doc) => {
             // console.log(JSON.stringify(doc.data, null, 2));
             doc.data.lessons.forEach( (lesson, i) => {
                 that.lessons.push(lesson);
-                that.menuItems[0].subItems.push( { title: lesson.title });
-                
+                that.menuItems[0].subItems.push({ title: lesson.title });
+                eventBus.$emit('newLessonData', that.lessons[0]);
             });
             // console.log('that.lessons: ' + JSON.stringify(that.lessons, null, 2));
             console.log('received lesson data');
             that.loading = false;
         });
         
+    },
+    created () {
+        if (process.env.LOCATION === "np") {
+            this.apiURL = 'https://flash-cards-api.herokuapp.com'
+        } else {
+            this.apiURL = 'http://localhost:3001'
+        }
     }
 }
 </script>

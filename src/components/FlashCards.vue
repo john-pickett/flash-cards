@@ -29,13 +29,16 @@
                             :label="`${n}`"
                             :value="n"
                             :id="`radio${i}`"
-                            
                         ></v-radio>
                     </v-radio-group>
                 </v-card>
             </v-flex>
         </v-layout>
-        <score-modal :userScore="currentScore" :highScores="highScores"></score-modal>
+        <score-modal 
+            :userScore="currentScore" 
+            :highScores="currentLesson.high_scores" 
+            :lessonId="currentLesson._id"
+        ></score-modal>
         <time-modal></time-modal>
     </div>
 </template>
@@ -70,17 +73,10 @@ export default {
             { name: "David", score: 70 }
         ],
         currentLesson: {
-            title: "test",
-            cards: [
-            "llamar", "bailar","comer","empezar","correr","tener","hacer","poder","decir","ir","ver","dar","saber","querer","llegar","pasar",
-            "deber","poner","parecer","quedar","creer","hablar","llevar","dejar","seguir","encontrar"
-            ],
-            answers: [
-            "to call","to dance","to eat","to begin","to run","to have","to do","to be able","to say","to go","to see","to give",
-            "to know","to want","to arrive","to happen","to ought to","to put","to seem", "to stay", "to believe","to speak",
-            "to carry","to leave","to follow","to find"
-            ],
-            length: 26
+            title: "",
+            cards: [],
+            answers: [],
+            length: 0
             }
         }
     },
@@ -95,12 +91,6 @@ export default {
           this.counter = 0;
         }
         this.getRandomAnswers();
-      },
-      evalGuess: function (event) {
-        let that = this;
-        // console.log('val: ' + event.target.value)
-
-        
       },
       getRandomAnswers: function () {
         if (this.randomAnswers.length > 0) {
@@ -131,18 +121,27 @@ export default {
         this.getRandomAnswers();
       },
       startLesson () {
-          this.setNewLesson();
+        this.setNewLesson();
+      },
+      resetForNewLesson() {
+        this.lessonRunning = false;
+        this.score = 0;
+        // to Evaluate
+        eventBus.$emit( 'scoreReset', 0 );
+        // to Timer
+        eventBus.$emit( 'stopTimer', true);
       }
     },
     mounted () {
-      
+      console.log('flash cards mounted')
     },
     created () {
-      // this lesson data comes from App.vue
-      // it runs on created ()
+      // this lesson data comes from Main.vue
+      // it runs on beforeMount ()
       eventBus.$on('newLessonData', data => {
         // console.log('receiving lesson data');
         this.currentLesson = data;
+        this.resetForNewLesson();
       });
       // from timer in Timer
       eventBus.$on('timeUp', data => {
