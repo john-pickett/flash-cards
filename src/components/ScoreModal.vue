@@ -84,7 +84,7 @@ export default {
     data () {
         return {
             dialog: false,
-            username: '',
+            userName: '',
             apiURL: null
         }
     },

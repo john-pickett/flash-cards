@@ -139,7 +139,7 @@ export default {
       // this lesson data comes from Main.vue
       // it runs on beforeMount ()
       eventBus.$on('newLessonData', data => {
-        // console.log('receiving lesson data');
+        console.log('receiving lesson data in FlashCards');
         this.currentLesson = data;
         this.resetForNewLesson();
       });

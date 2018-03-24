@@ -45,7 +45,7 @@ export default {
             return title.replace(' ', '-').toLowerCase();
         },
         loadLesson (event) {
-            // this is hard-coded for now. hard-coding is bad
+            // this is hard-coded for now. hard-coding is bad, mmkay?
             console.log(event.target.id);
             if (event.target.id === "spanish-verbs") {
                 eventBus.$emit('newLessonData', this.lessons[0]);
@@ -66,22 +66,21 @@ export default {
     beforeMount () {
         let that = this;
         // console.log(' app before mount');
-        axios.get(this.apiURL + '/lessons');
-        console.log('getting ' + this.apiURL)
+        // console.log('getting ' + this.apiURL)
+        axios.get(this.apiURL + '/lessons')
         .then( (doc) => {
             // console.log(JSON.stringify(doc.data, null, 2));
             doc.data.lessons.forEach( (lesson, i) => {
                 that.lessons.push(lesson);
-                that.menuItems[0].subItems.push({ title: lesson.title });
-                eventBus.$emit('newLessonData', that.lessons[0]);
+                // that.menuItems[0].subItems.push({ title: lesson.title });
             });
             // console.log('that.lessons: ' + JSON.stringify(that.lessons, null, 2));
-            console.log('received lesson data');
-            that.loading = false;
+            // console.log('received lesson data');
+            eventBus.$emit('newLessonData', that.lessons[0]);
         });
     }, 
     mounted () {
-        console.log('main mounted')
+        // console.log('main mounted')
     }
 }
 </script>

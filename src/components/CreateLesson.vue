@@ -150,12 +150,15 @@
                 </v-card>
             </v-flex>
         </v-layout>
+        <new-lesson-modal></new-lesson-modal>
     </v-container>
 </template>
 
 <script>
 /* eslint-disable */
 import axios from 'axios';
+import {eventBus} from '@/main.js';
+import NewLessonModal from './NewLessonModal';
 
 /*
 lesson: {
@@ -168,6 +171,9 @@ lesson: {
 */
 
 export default {
+    components: {
+        NewLessonModal
+    },
     data () {
         return {
             title: '',
@@ -179,7 +185,8 @@ export default {
     },
     methods: {
         saveLesson () {
-            console.log('saving lesson')
+            let that = this;
+            // console.log('saving lesson')
             let lessonData = {
                 title: this.title,
                 length: this.cards.length,
@@ -187,7 +194,7 @@ export default {
                 cards: this.cards,
                 answers: this.answers
             }
-            console.log(JSON.stringify(lessonData, null, 2));
+            // console.log(JSON.stringify(lessonData, null, 2));
             axios.post('http://localhost:3001/lessons', {
                 title: this.title,
                 length: this.cards.length,
@@ -195,7 +202,8 @@ export default {
                 cards: this.cards,
                 answers: this.answers
             }).then( (doc) => {
-                console.log(JSON.stringify(doc.data))
+                // console.log(JSON.stringify(doc.data))
+                eventBus.$emit('openLessonModal', true);
             });
         }
     }

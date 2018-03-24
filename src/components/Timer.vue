@@ -40,7 +40,7 @@ export default {
         },
         stopTimer () {
             this.timeRemaining = null;
-            clearInterval(x);
+            
         }
     },
     created () {
