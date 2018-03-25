@@ -37,7 +37,7 @@ export default {
         return {
             // lesson data from Mongo is stored here
             lessons: [],
-            apiURL: null
+            apiURL: 'https://flash-cards-api.herokuapp.com'
         }
     },
     methods: {
@@ -57,11 +57,11 @@ export default {
         }
     },
     created () {
-        if (process.env.LOCATION === "np") {
-            this.apiURL = 'https://flash-cards-api.herokuapp.com'
-        } else {
-            this.apiURL = 'http://localhost:3001'
-        }
+        // if (process.env.LOCATION === "np") {
+        //     this.apiURL = 'https://flash-cards-api.herokuapp.com'
+        // } else {
+        //     this.apiURL = 'http://localhost:3001'
+        // }
     },
     beforeMount () {
         let that = this;

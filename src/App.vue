@@ -47,6 +47,8 @@
             </v-list-tile-content>
             </v-list-tile> -->
             <!-- end of original -->
+
+
             <!-- <v-list v-if="this.item.title.length > 1">
                 <v-list-tile 
                     value="true"
@@ -116,7 +118,7 @@ export default {
             clipped: false,
             drawer: true,
             fixed: false,
-            // subItems are currently hard-coded, which is bad
+            // subItems are currently hard-coded
             menuItems: [
                 { id: 'flash-cards', icon: 'bubble_chart', title: 'Flash Cards', url: '/', subItems: [
                     { title: 'Verbs' }, { title: 'Colors' }, { title: 'Family' }
