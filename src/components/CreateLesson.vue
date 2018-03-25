@@ -195,7 +195,7 @@ export default {
                 answers: this.answers
             }
             // console.log(JSON.stringify(lessonData, null, 2));
-            axios.post('http://localhost:3001/lessons', {
+            axios.post('https://flash-cards-api.herokuapp.com/lessons', {
                 title: this.title,
                 length: this.cards.length,
                 timer: this.timer,

@@ -85,7 +85,7 @@ export default {
         return {
             dialog: false,
             userName: '',
-            apiURL: null
+            apiURL: 'https://flash-cards-api.herokuapp.com'
         }
     },
     methods: {
@@ -103,11 +103,11 @@ export default {
       },
     },
     created () {
-        if (process.env.LOCATION === "np") {
-            this.apiURL = 'https://flash-cards-api.herokuapp.com'
-        } else {
-            this.apiURL = 'http://localhost:3001'
-        }
+        // if (process.env.LOCATION === "np") {
+        //     this.apiURL = 'https://flash-cards-api.herokuapp.com'
+        // } else {
+        //     this.apiURL = 'http://localhost:3001'
+        // }
         // from TimeModal
         eventBus.$on('openScoreModal', data => {
             this.dialog = data
