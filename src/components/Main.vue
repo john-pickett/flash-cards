@@ -1,11 +1,25 @@
 <template>
     <v-container grid-list-md text-xs-center>
-        <v-layout row wrap>
+        <v-layout row v-if="!currentLessonCheck">
+            <v-flex xs4>
+                <v-card height="300px">
+                <h4>Choose a Lesson</h4>
+                <div v-if="!myLessonTitles">
+                    Loading...
+                </div>
+                <v-list v-if="myLessonTitles" v-for="item in myLessonTitles" :key="item.id">
+                    <v-list-tile :id="item.id" @click="chooseLesson($event)">{{item.title}}</v-list-tile>
+                </v-list>
+                <!-- <p>{{getCurrentLesson}}</p> -->
+                </v-card>
+            </v-flex>
+        </v-layout>
+        <v-layout row wrap v-if="currentLessonCheck">
             <v-flex xs12>
                 <flash-cards></flash-cards>
             </v-flex>
         </v-layout>
-        <v-layout row wrap>
+        <v-layout row wrap v-if="currentLessonCheck">
             <v-flex xs4>
                 <v-card height="300px" class="flash-cards">
                     <timer></timer>
@@ -37,22 +51,46 @@ export default {
         return {
             // lesson data from Mongo is stored here
             lessons: [],
-            apiURL: 'https://flash-cards-api.herokuapp.com'
+            // lessonSelected: false
         }
     },
     methods: {
-        kebabCase (title) {
-            return title.replace(' ', '-').toLowerCase();
+        // kebabCase (title) {
+        //     return title.replace(' ', '-').toLowerCase();
+        // },
+        // loadLesson (event) {
+        //     // this is hard-coded for now. hard-coding is bad, mmkay?
+        //     console.log(event.target.id);
+        //     if (event.target.id === "spanish-verbs") {
+        //         eventBus.$emit('newLessonData', this.lessons[0]);
+        //     } else if (event.target.id === "spanish-colors") {
+        //         eventBus.$emit('newLessonData', this.lessons[1]);
+        //     } else if (event.target.id === "spanish-family") {
+        //         eventBus.$emit('newLessonData', this.lessons[2]);
+        //     }
+        // },
+        chooseLesson (event) {
+            // console.log('choosing lesson ' + event.target.id);
+            let myLesson = this.lessons.filter(lesson => lesson._id === event.target.id)[0];
+            this.$store.dispatch('SET_CURRENT_LESSON', {myLesson});
+            this.lessonSelected = true;
+        }
+    },
+    computed: {
+        myLessonTitles: function () {
+            return this.$store.getters.lessonTitles;
         },
-        loadLesson (event) {
-            // this is hard-coded for now. hard-coding is bad, mmkay?
-            console.log(event.target.id);
-            if (event.target.id === "spanish-verbs") {
-                eventBus.$emit('newLessonData', this.lessons[0]);
-            } else if (event.target.id === "spanish-colors") {
-                eventBus.$emit('newLessonData', this.lessons[1]);
-            } else if (event.target.id === "spanish-family") {
-                eventBus.$emit('newLessonData', this.lessons[2]);
+        getLessons: function () {
+            return this.$store.getters.allLessons;
+        },
+        getCurrentLesson: function () {
+            return this.$store.getters.currentLesson;
+        },
+        currentLessonCheck: function () {
+            if (this.$store.getters.currentLesson) {
+                return true;
+            } else {
+                return false;
             }
         }
     },
@@ -64,28 +102,28 @@ export default {
         // }
     },
     beforeMount () {
-        let that = this;
-        // console.log(' app before mount');
-        // console.log('getting ' + this.apiURL)
-        axios.get(this.apiURL + '/lessons')
-        .then( (doc) => {
-            // console.log(JSON.stringify(doc.data, null, 2));
-            doc.data.lessons.forEach( (lesson, i) => {
-                that.lessons.push(lesson);
-                // that.menuItems[0].subItems.push({ title: lesson.title });
-            });
-            // console.log('that.lessons: ' + JSON.stringify(that.lessons, null, 2));
-            // console.log('received lesson data');
-            eventBus.$emit('newLessonData', that.lessons[0]);
-        });
+        if (this.$store.state.lessons.length > 1) {
+            this.lessons = this.getLessons;
+        }
     }, 
     mounted () {
-        // console.log('main mounted')
+        // this is loading the data twice when it runs - fix?
+        if (this.$store.state.lessons.length === 0) {
+            this.$store.dispatch('GRAB_LESSON_DATA').then( () => {
+            console.log('data is ready');
+            this.lessons = this.getLessons;
+        })
+        }
+        
     }
 }
 </script>
 
-<style>
+<style scoped>
+
+    li {
+        font-size: 18px !important;
+    }
 
 
 </style>

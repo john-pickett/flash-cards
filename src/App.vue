@@ -1,4 +1,5 @@
 <template>
+<div>
     <v-app>
         <v-navigation-drawer
         persistent
@@ -9,12 +10,8 @@
         fixed
         app
         >
-        <v-list>
-            <v-list-group
-                v-for="item in menuItems"
-                :key="item.title"
-            >
-                <v-list-tile color="blue" slot="activator" :to="item.url">
+            <v-list v-for="item in menuItems" :key="item.title">
+                <v-list-tile color="blue" :to="item.url">
                     <v-list-tile-action>
                         <v-icon color="blue" v-html="item.icon"></v-icon>
                     </v-list-tile-action>
@@ -22,45 +19,7 @@
                         <v-list-tile-title>{{ item.title }}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
-                <v-list-tile v-for="subItem in item.subItems" :key="subItem.title">
-                    <v-list-tile-content>
-                        <v-list-tile-title @click="loadLesson($event)">
-                            <!-- :id="kebabCase(subItem.title)" -->
-                            {{ subItem.title }}
-                        </v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-            </v-list-group>
-        </v-list>
-            <!-- original -->
-            <!-- <v-list-tile
-            value="true"
-            v-for="(item, i) in menuItems"
-            :key="i"
-            :to="item.url"
-            >
-            <v-list-tile-action>
-                <v-icon v-html="item.icon"></v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-                <v-list-tile-title v-text="item.title"></v-list-tile-title>
-            </v-list-tile-content>
-            </v-list-tile> -->
-            <!-- end of original -->
-
-
-            <!-- <v-list v-if="this.item.title.length > 1">
-                <v-list-tile 
-                    value="true"
-                    v-for="(elem, j) in this.item.title"
-                    :key="j"
-
-                >
-                    <v-list-tile-content>
-                        <v-list-tile-title v-text="elem.title"></v-list-tile-title>
-                    </v-list-tile-content>
-                </v-list-tile>
-            </v-list> -->
+            </v-list>
         </v-navigation-drawer>
         <v-toolbar
         app
@@ -85,26 +44,11 @@
         <v-content>
             <router-view/>
         </v-content>
-        <!-- <v-navigation-drawer
-        temporary
-        :right="right"
-        v-model="rightDrawer"
-        fixed
-        app
-        > -->
-        <!-- <v-list>
-            <v-list-tile @click="right = !right">
-            <v-list-tile-action>
-                <v-icon>compare_arrows</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
-            </v-list-tile>
-        </v-list> -->
-        <!-- </v-navigation-drawer> -->
         <v-footer :fixed="fixed" app>
         <span>&nbsp; &copy; 2018</span>
         </v-footer>
     </v-app>
+</div>
 </template>
 
 <script>
@@ -115,15 +59,13 @@ export default {
     name: 'App',
     data () {
         return {
+            loading: true,
             clipped: false,
             drawer: true,
             fixed: false,
-            // subItems are currently hard-coded
             menuItems: [
-                { id: 'flash-cards', icon: 'bubble_chart', title: 'Flash Cards', url: '/', subItems: [
-                    { title: 'Verbs' }, { title: 'Colors' }, { title: 'Family' }
-                ]},
-                { id: 'lessons', icon: 'playlist_add', title: 'Create Lesson', url: '/new-lesson', subItems: []}
+                { id: 'flash-cards', icon: 'bubble_chart', title: 'Flash Cards', url: '/cards' },
+                { id: 'lessons', icon: 'playlist_add', title: 'Create Lesson', url: '/new-lesson' }
             ],
             miniVariant: false,
             right: true,
@@ -131,7 +73,18 @@ export default {
             title: 'Flash Cards'
         }
     },
-    
+    methods: {
+        
+    },
+    created () {
+        this.$store.dispatch('GRAB_LESSON_DATA').then( () => {
+            console.log('data is ready');
+        })
+    },
+    mounted () {
+
+        
+    }
 }
 </script>
 

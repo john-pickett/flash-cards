@@ -99,16 +99,11 @@ export default {
                 "high_scores": this.highScores
             }).then( (doc) => {
                 console.log(doc.data);
+                this.$store.dispatch('SET_CURRENT_LESSON', null);
             });
       },
     },
     created () {
-        // if (process.env.LOCATION === "np") {
-        //     this.apiURL = 'https://flash-cards-api.herokuapp.com'
-        // } else {
-        //     this.apiURL = 'http://localhost:3001'
-        // }
-        // from TimeModal
         eventBus.$on('openScoreModal', data => {
             this.dialog = data
         });

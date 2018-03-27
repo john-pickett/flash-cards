@@ -1,9 +1,6 @@
 <template>
     <div>
-        <div v-if="currentLesson === null">
-                Loading...
-        </div>
-        <v-layout row wrap v-if="currentLesson !== null">
+        <v-layout row wrap>
             <v-flex xs-6>
                 <v-card height="300px" id="foreign-card" class="flash-cards">
                     <span class="headline">{{currentLesson.title || "Placeholder"}}</span>
@@ -55,29 +52,22 @@ export default {
         TimeModal
     },
     data () {
-      return {
-        currentWord: "",
-        currentGuess: "",
-        counter: 0,
-        randomAnswers: [],
-        currentScore: 0,
-        // currentLesson: 'hey',
-        timeUp: false,
-        lessonRunning: false,
-        dialog: false,
-        userName: '',
-        highScores: [
-            { name: "John", score: 100 },
-            { name: "Mary", score: 90 },
-            { name: "Lucy", score: 80 },
-            { name: "David", score: 70 }
-        ],
-        currentLesson: {
-            title: "",
-            cards: [],
-            answers: [],
-            length: 0
-            }
+        return {
+            currentWord: "",
+            currentGuess: "",
+            counter: 0,
+            randomAnswers: [],
+            currentScore: 0,
+            timeUp: false,
+            lessonRunning: false,
+            dialog: false,
+            userName: '',
+            highScores: [
+                // { name: "John", score: 100 },
+                // { name: "Mary", score: 90 },
+                // { name: "Lucy", score: 80 },
+                // { name: "David", score: 70 }
+            ]
         }
     },
     methods: {
@@ -149,33 +139,35 @@ export default {
           eventBus.$emit('openTimeModal', [true, this.currentScore]);
       })
     },
+    computed: {
+        currentLesson: function () {
+            return this.$store.getters.currentLesson.myLesson;
+        }
+    },
     watch: {
-      counter: function () {
-        this.currentWord = this.currentLesson.cards[this.counter];
-      },
-      currentGuess: function () {
-        console.log(this.currentGuess);
-        if (this.currentGuess === null) {
-            return;
+        counter: function () {
+            this.currentWord = this.currentLesson.cards[this.counter];
+        },
+        currentGuess: function () {
+            console.log(this.currentGuess);
+            if (this.currentGuess === null) {
+                return;
+            }
+            if (this.currentLesson.answers.indexOf(this.currentGuess) === this.counter) {
+                console.log('correct')
+                this.currentScore += 10;
+                eventBus.$emit( 'answerPicked', [true, this.currentScore] );
+            } else {
+                this.currentScore -= 5;
+                eventBus.$emit( 'answerPicked', [false, this.currentScore] );
+            }
+            
+            let that = this;
+            setTimeout(function () {
+                that.currentGuess = null;
+                that.nextCard();
+            }, 1000);
         }
-        if (this.currentLesson.answers.indexOf(this.currentGuess) === this.counter) {
-            console.log('correct')
-            this.currentScore += 10;
-            eventBus.$emit( 'answerPicked', [true, this.currentScore] );
-        } else {
-            this.currentScore -= 5;
-            eventBus.$emit( 'answerPicked', [false, this.currentScore] );
-        }
-        
-        let that = this;
-        setTimeout(function () {
-            that.currentGuess = null;
-            that.nextCard();
-        }, 1000);
-      },
-      currentLesson: function () {
-        // console.log("from FC " + JSON.stringify(this.currentLesson))
-      }
     }
 }
 </script>

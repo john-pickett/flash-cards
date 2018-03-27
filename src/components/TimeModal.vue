@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="dialog" max-width="500px" persistent="true">
+    <v-dialog v-model="dialog" max-width="500px" persistent=true>
         <v-card>
           <v-card-title>
             <span class="headline text-xs-center">Time's Up!</span>
