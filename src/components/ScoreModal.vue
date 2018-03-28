@@ -62,7 +62,7 @@
                 </v-flex>
                 <v-flex md6>
                     <v-card class="text-md-center" height="100%">
-                        <span class="headline">Second Card</span>
+                        <span class="headline"></span>
                     </v-card>
                 </v-flex>
             </v-layout>
@@ -99,7 +99,8 @@ export default {
                 "high_scores": this.highScores
             }).then( (doc) => {
                 console.log(doc.data);
-                this.$store.dispatch('SET_CURRENT_LESSON', null);
+                this.dialog = false;
+                eventBus.$emit('openConfirm', true);
             });
       },
     },

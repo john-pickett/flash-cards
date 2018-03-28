@@ -37,6 +37,7 @@
             :lessonId="currentLesson._id"
         ></score-modal>
         <time-modal></time-modal>
+        <score-confirm-modal></score-confirm-modal>
     </div>
 </template>
 
@@ -45,11 +46,13 @@
 import { eventBus } from '@/main.js';
 import ScoreModal from '@/components/ScoreModal';
 import TimeModal from '@/components/TimeModal';
+import ScoreConfirmModal from '@/components/ScoreConfirmModal';
 
 export default {
     components: {
         ScoreModal,
-        TimeModal
+        TimeModal,
+        ScoreConfirmModal
     },
     data () {
         return {
