@@ -12,7 +12,6 @@
                     <!-- <v-btn class="primary">
                         <v-icon>add</v-icon>
                     </v-btn> -->
-                <v-btn class="primary" @click="saveLesson">Save Lesson</v-btn>
                 </v-card>
             </v-flex>
         </v-layout>
@@ -147,6 +146,13 @@
                         id="answer10"
                         v-model="answers[9]"
                     ></v-text-field>
+                </v-card>
+            </v-flex>
+        </v-layout>
+        <v-layout row>
+            <v-flex xs-12>
+                <v-card class="pa-3">
+                    <v-btn class="primary" @click="saveLesson">Save Lesson</v-btn>
                 </v-card>
             </v-flex>
         </v-layout>
