@@ -3,7 +3,8 @@ import Router from 'vue-router';
 import Home from '@/components/Home';
 import Main from '@/components/Main';
 import CreateLesson from '@/components/CreateLesson';
-import Test from '@/components/Test';
+import Hangman from '@/components/Hangman';
+// import Test from '@/components/Test';
 
 Vue.use(Router);
 
@@ -25,9 +26,9 @@ export default new Router({
         component: CreateLesson
     },
     {
-        path: '/test',
-        name: 'Test',
-        component: Test
+        path: '/hangman',
+        name: 'Hangman',
+        component: Hangman
     }
   ]
 })

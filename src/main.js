@@ -23,6 +23,7 @@ import {
   VMenu,
   VTextField,
   VParallax,
+  VProgressCircular,
   transitions
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
@@ -45,6 +46,7 @@ Vue.use(Vuetify, {
     VMenu,
     VTextField,
     VParallax,
+    VProgressCircular,
     transitions
   }
 })

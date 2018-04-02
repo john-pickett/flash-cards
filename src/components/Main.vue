@@ -2,7 +2,13 @@
     <v-container grid-list-md text-xs-center>
         <v-layout row v-if="!currentLessonCheck">
             <v-flex xs4>
-                <v-card height="300px">
+                <v-card v-if="!getLessons" height="300px">
+                    <h4>Choose a Lesson</h4>
+                    <div style="margin: auto">
+                        <v-progress-circular indeterminate color="primary"></v-progress-circular>
+                    </div>
+                </v-card>
+                <v-card v-if="getLessons" height="300px">
                 <h4>Choose a Lesson</h4>
                 <div v-if="!myLessonTitles">
                     Loading...
@@ -55,20 +61,6 @@ export default {
         }
     },
     methods: {
-        // kebabCase (title) {
-        //     return title.replace(' ', '-').toLowerCase();
-        // },
-        // loadLesson (event) {
-        //     // this is hard-coded for now. hard-coding is bad, mmkay?
-        //     console.log(event.target.id);
-        //     if (event.target.id === "spanish-verbs") {
-        //         eventBus.$emit('newLessonData', this.lessons[0]);
-        //     } else if (event.target.id === "spanish-colors") {
-        //         eventBus.$emit('newLessonData', this.lessons[1]);
-        //     } else if (event.target.id === "spanish-family") {
-        //         eventBus.$emit('newLessonData', this.lessons[2]);
-        //     }
-        // },
         chooseLesson (event) {
             // console.log('choosing lesson ' + event.target.id);
             let myLesson = this.lessons.filter(lesson => lesson._id === event.target.id)[0];
@@ -95,11 +87,7 @@ export default {
         }
     },
     created () {
-        // if (process.env.LOCATION === "np") {
-        //     this.apiURL = 'https://flash-cards-api.herokuapp.com'
-        // } else {
-        //     this.apiURL = 'http://localhost:3001'
-        // }
+
     },
     beforeMount () {
         if (this.$store.state.lessons.length > 1) {
@@ -108,13 +96,13 @@ export default {
     }, 
     mounted () {
         // this is loading the data twice when it runs - fix?
+        // same API call is in App.vue
         if (this.$store.state.lessons.length === 0) {
             this.$store.dispatch('GRAB_LESSON_DATA').then( () => {
-            console.log('data is ready');
+            console.log('data is ready, dude');
             this.lessons = this.getLessons;
-        })
+            })
         }
-        
     }
 }
 </script>

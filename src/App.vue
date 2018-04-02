@@ -65,7 +65,8 @@ export default {
             fixed: false,
             menuItems: [
                 { id: 'flash-cards', icon: 'bubble_chart', title: 'Flash Cards', url: '/cards' },
-                { id: 'lessons', icon: 'playlist_add', title: 'Create Lesson', url: '/new-lesson' }
+                { id: 'lessons', icon: 'playlist_add', title: 'Create Lesson', url: '/new-lesson' },
+                { id: 'hangman', icon: 'space_bar', title: 'Hangman', url: '/hangman' }
             ],
             miniVariant: false,
             right: true,
@@ -78,7 +79,7 @@ export default {
     },
     created () {
         this.$store.dispatch('GRAB_LESSON_DATA').then( () => {
-            console.log('data is ready');
+            console.log('data is ready, man');
         })
     },
     mounted () {
