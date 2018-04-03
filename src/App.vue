@@ -65,8 +65,7 @@ export default {
             fixed: false,
             menuItems: [
                 { id: 'flash-cards', icon: 'bubble_chart', title: 'Flash Cards', url: '/cards' },
-                { id: 'lessons', icon: 'playlist_add', title: 'Create Lesson', url: '/new-lesson' },
-                { id: 'hangman', icon: 'space_bar', title: 'Hangman', url: '/hangman' }
+                { id: 'lessons', icon: 'playlist_add', title: 'Create Lesson', url: '/new-lesson' }
             ],
             miniVariant: false,
             right: true,

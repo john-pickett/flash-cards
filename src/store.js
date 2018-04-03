@@ -9,14 +9,19 @@ const store = new Vuex.Store({
   state: {
     apiURL: 'https://flash-cards-api.herokuapp.com',
     lessons: [],
-    currentLesson: null
+    currentLesson: null,
+    loading: false
   },
   actions: {
     GRAB_LESSON_DATA: function ({commit}) {
+        commit('YES_LOADING');
         return new Promise( (resolve, reject) => {
             axios.get(this.state.apiURL + '/lessons').then( (res) => {
                 commit('SET_LESSON_DATA', {list: res.data.lessons});
-                resolve();
+                setTimeout( () => {
+                    commit('DONE_LOADING');
+                    resolve();
+                }, 3000)
                 // console.log(JSON.stringify(res.data.lessons[0]));
             }, (err) => {
                 console.log(err);
@@ -34,6 +39,12 @@ const store = new Vuex.Store({
     },
     SELECT_CURRENT_LESSON: (state, {lesson}) => {
         state.currentLesson = lesson;
+    },
+    YES_LOADING: (state) => {
+        state.loading = true;
+    },
+    DONE_LOADING: (state) => {
+        state.loading = false;
     }
   },
   getters: {
@@ -51,6 +62,9 @@ const store = new Vuex.Store({
     },
     currentLesson: state => {
         return state.currentLesson;
+    },
+    isLoading: state =>  {
+        return state.loading
     }
   },  
   modules: {

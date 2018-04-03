@@ -2,13 +2,13 @@
     <v-container grid-list-md text-xs-center>
         <v-layout row v-if="!currentLessonCheck">
             <v-flex xs4>
-                <v-card v-if="!getLessons" height="300px">
+                <v-card v-if="loading" height="300px">
                     <h4>Choose a Lesson</h4>
                     <div style="margin: auto">
                         <v-progress-circular indeterminate color="primary"></v-progress-circular>
                     </div>
                 </v-card>
-                <v-card v-if="getLessons" height="300px">
+                <v-card v-if="!loading" height="300px">
                 <h4>Choose a Lesson</h4>
                 <div v-if="!myLessonTitles">
                     Loading...
@@ -76,6 +76,9 @@ export default {
         },
         getCurrentLesson: function () {
             return this.$store.getters.currentLesson;
+        },
+        loading: function () {
+            return this.$store.getters.isLoading;
         },
         currentLessonCheck: function () {
             if (this.$store.getters.currentLesson) {
