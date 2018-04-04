@@ -18,10 +18,10 @@ const store = new Vuex.Store({
         return new Promise( (resolve, reject) => {
             axios.get(this.state.apiURL + '/lessons').then( (res) => {
                 commit('SET_LESSON_DATA', {list: res.data.lessons});
-                setTimeout( () => {
+                // setTimeout( () => {
                     commit('DONE_LOADING');
                     resolve();
-                }, 3000)
+                // }, 3000)
                 // console.log(JSON.stringify(res.data.lessons[0]));
             }, (err) => {
                 console.log(err);
