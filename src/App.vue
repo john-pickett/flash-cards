@@ -98,8 +98,6 @@ export default {
         font-size: 22px;
     }
 
-    
-
     .flash-cards {
       padding: 20px 20px 0 20px;
     }
