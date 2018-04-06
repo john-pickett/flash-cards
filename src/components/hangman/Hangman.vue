@@ -5,21 +5,24 @@
         <v-layout row>
             <v-flex xs-6>
                 <v-card class="pa-3" width="550px">
-                    <v-card-media :src="require('../../assets/dancing2.jpg')" height="300px"></v-card-media>
+                    <v-card-media :src="require('../../assets/photos/' + this.currentPhoto + '.jpg')" 
+                        height="300px"></v-card-media>
                 </v-card>
             </v-flex>
             <v-flex xs-6>
                 <v-card class="pa-3">
+                    <p class="current-sentence">{{currentSentence}}</p>
                     <v-text-field
                         name="guess"
                         label="Guess"
                         id="guess"
                         v-model="guess"
+                        @keyup.enter="nextPhoto"
                     ></v-text-field>
-                    <div v-if="correct">
+                    <div v-if="correct" class="correct">
                         Correct!
                     </div>
-                    <div v-if="wrong">
+                    <div v-if="wrong" class="wrong">
                         Nope!
                     </div>
                     <v-layout row>
@@ -84,6 +87,9 @@
                     <div v-if="wrong2">
                         Nope!
                     </div>
+                    <v-card-actions>
+                        <v-btn color="primary" @click="nextPhoto">Next</v-btn>
+                    </v-card-actions>
                 </v-card>
             </v-flex>
         </v-layout>
@@ -94,7 +100,10 @@
 export default {
     data () {
         return {
-            answer: 'bailar',
+            currentPhoto: '',
+            currentSentence: '',
+            photoCount: 0,
+            answer: '',
             guess: '',
             correct: null,
             wrong: null,
@@ -105,7 +114,14 @@ export default {
             guess2_5: '',
             guess2_6: '',
             correct2: null,
-            wrong2: null
+            wrong2: null,
+            photos: [
+                {title: 'dancing-women', answer: 'bailan', sentence: 'Las mujeres _____'},
+                {title: 'curious-kitten', answer: 'gatito', sentence: 'El _____ dice "Hola!"'},
+                {title: 'dog-beach', answer: 'playa', sentence: 'El perro esta en la ____'},
+                {title: 'sleeping-cat', answer: 'duerme', sentence: 'El gato ____'},
+                {title: 'yellow-hat', answer: 'amarillo', sentence: 'El sombrero esta ____' }
+            ]
         }
     },
     methods: {
@@ -122,8 +138,16 @@ export default {
             } else {
                 return;
             }
-            
-
+        },
+        nextPhoto: function () {
+            this.guess = '';
+            this.photoCount += 1;
+            if (this.photoCount >= this.photos.length) {
+                this.photoCount = 0;
+            }
+            this.currentPhoto = this.photos[this.photoCount].title;
+            this.answer = this.photos[this.photoCount].answer;
+            this.currentSentence = this.photos[this.photoCount].sentence;
         }
     },
     watch: {
@@ -151,11 +175,24 @@ export default {
         guess2: function () {
             return this.guess2_1 + this.guess2_2 + this.guess2_3 + this.guess2_4 + this.guess2_5 + this.guess2_6;
         }
+    },
+    mounted () {
+        this.currentPhoto = this.photos[0].title;
+        this.answer = this.photos[0].answer;
+        this.currentSentence = this.photos[0].sentence;
     }
 }
 </script>
 
 <style scoped>
-    
-    
+    .current-sentence {
+        font-size: 22px;
+        text-align: center;
+    }
+
+    .correct, .wrong {
+        font-size: 22px;
+        text-align: center;
+    }
+
 </style>
