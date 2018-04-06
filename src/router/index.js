@@ -3,6 +3,7 @@ import Router from 'vue-router';
 import Home from '@/components/Home';
 import Main from '@/components/flash-cards/Main';
 import CreateLesson from '@/components/flash-cards/CreateLesson';
+import Hangman from '@/components/hangman/Hangman';
 
 // import Test from '@/components/Test';
 
@@ -24,6 +25,11 @@ export default new Router({
         path: '/new-lesson',
         name: 'CreateLesson',
         component: CreateLesson
+    },
+    {
+        path: '/hangman',
+        name: "Hangman",
+        component: Hangman
     }
   ]
 })
