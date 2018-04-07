@@ -52,6 +52,20 @@ Vue.use(Vuetify, {
 })
 
 export const eventBus = new Vue();
+// eventBus methods
+// -- flash cards --
+// scoreReset
+// answerPicked
+// startTimer
+// stopTimer
+// timeUp
+// openConfirm
+// openScoreModal
+// openLessonModal
+// openTimeModal
+
+// -- hang man --
+
 
 Vue.config.productionTip = false
 
