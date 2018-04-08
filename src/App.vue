@@ -2,7 +2,7 @@
     <div>
         <v-app>
             <v-navigation-drawer
-            persistent
+            permanent
             :mini-variant="miniVariant"
             :clipped="clipped"
             v-model="drawer"
