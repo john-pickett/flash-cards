@@ -9,7 +9,7 @@
             enable-resize-watcher
             fixed
             app
-            width="200"
+            width="250"
             >
                 <v-list v-for="item in menuItems" :key="item.title">
                     <v-list-tile color="blue" :to="item.url">
@@ -66,7 +66,8 @@ export default {
             menuItems: [
                 { id: 'flash-cards', icon: 'bubble_chart', title: 'Flash Cards', url: '/cards' },
                 { id: 'lessons', icon: 'playlist_add', title: 'Create Lesson', url: '/new-lesson' },
-                { id: 'hangman', icon: 'space_bar', title: 'Hangman', url: '/hangman' }
+                { id: 'decks', icon: 'space_bar', title: 'Decks', url: '/decks' },
+                { id: 'create-deck', icon: 'add_circle', title: 'Create New Deck', url: '/new-deck'}
             ],
             miniVariant: false,
             right: true,

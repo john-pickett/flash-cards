@@ -3,7 +3,8 @@ import Router from 'vue-router';
 import Home from '@/components/Home';
 import Main from '@/components/flash-cards/Main';
 import CreateLesson from '@/components/flash-cards/CreateLesson';
-import Hangman from '@/components/hangman/Hangman';
+import Decks from '@/components/card-decks/Decks';
+import NewDeck from '@/components/card-decks/NewDeck';
 
 // import Test from '@/components/Test';
 
@@ -27,9 +28,14 @@ export default new Router({
         component: CreateLesson
     },
     {
-        path: '/hangman',
-        name: "Hangman",
-        component: Hangman
+        path: '/decks',
+        name: "Decks",
+        component: Decks
+    },
+    {
+        path: '/new-deck',
+        name: "NewDeck",
+        component: NewDeck
     }
   ]
 })
