@@ -9,6 +9,7 @@ const store = new Vuex.Store({
   state: {
     apiURL: 'https://flash-cards-api.herokuapp.com',
     lessons: [],
+    decks: [],
     currentLesson: null,
     loading: false
   },
@@ -18,14 +19,15 @@ const store = new Vuex.Store({
         return new Promise( (resolve, reject) => {
             axios.get(this.state.apiURL + '/lessons').then( (res) => {
                 commit('SET_LESSON_DATA', {list: res.data.lessons});
-                // setTimeout( () => {
-                    commit('DONE_LOADING');
-                    resolve();
-                // }, 3000)
-                // console.log(JSON.stringify(res.data.lessons[0]));
             }, (err) => {
                 console.log(err);
             })
+            .then(axios.get(this.state.apiURL + '/decks').then( (res) => {
+                commit('SET_DECK_DATA', {list: res.data.decks});
+                console.log('got decks');
+                commit('DONE_LOADING');
+                resolve();
+            }))
         });
     },
     SET_CURRENT_LESSON: function ({commit}, lesson) {
@@ -39,6 +41,9 @@ const store = new Vuex.Store({
     },
     SELECT_CURRENT_LESSON: (state, {lesson}) => {
         state.currentLesson = lesson;
+    },
+    SET_DECK_DATA: (state, {list}) => {
+        state.decks = list
     },
     YES_LOADING: (state) => {
         state.loading = true;
@@ -55,6 +60,13 @@ const store = new Vuex.Store({
             titles.push({"title": lesson.title, "id": lesson._id});
         })
         // console.log('titles 42 ' + JSON.stringify(titles))
+        return titles;
+    },
+    deckTitles: state => {
+        let titles = [];
+        state.decks.forEach( (deck) => {
+            titles.push({"title": deck.title, "id": deck._id});
+        });
         return titles;
     },
     allLessons: state => {

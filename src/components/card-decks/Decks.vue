@@ -40,12 +40,8 @@
 
 <script>
 import { eventBus } from '@/main.js';
-import MakeInputs from './MakeInputs';
 
 export default {
-    components: {
-        MakeInputs
-    },
     data () {
         return {
             currentPhoto: '',
