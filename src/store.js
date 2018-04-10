@@ -11,6 +11,7 @@ const store = new Vuex.Store({
     lessons: [],
     decks: [],
     currentLesson: null,
+    currentDeck: null,
     loading: false
   },
   actions: {
@@ -32,6 +33,9 @@ const store = new Vuex.Store({
     },
     SET_CURRENT_LESSON: function ({commit}, lesson) {
         commit('SELECT_CURRENT_LESSON', {lesson});
+    },
+    SET_CURRENT_DECK: function ({commit}, id) {
+        commit('SELECT_CURRENT_DECK', {id});
     }
   },
   mutations: {
@@ -41,6 +45,9 @@ const store = new Vuex.Store({
     },
     SELECT_CURRENT_LESSON: (state, {lesson}) => {
         state.currentLesson = lesson;
+    },
+    SELECT_CURRENT_DECK: (state, {id}) => {
+        state.currentDeck = state.decks.filter(deck => deck._id === id)[0];
     },
     SET_DECK_DATA: (state, {list}) => {
         state.decks = list
@@ -74,6 +81,9 @@ const store = new Vuex.Store({
     },
     currentLesson: state => {
         return state.currentLesson;
+    },
+    currentDeck: state => {
+        return state.currentDeck;
     },
     isLoading: state =>  {
         return state.loading

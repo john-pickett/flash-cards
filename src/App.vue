@@ -64,6 +64,7 @@ export default {
             drawer: true,
             fixed: false,
             menuItems: [
+                { id: 'home', icon: 'home', title: 'Home', url: '/'},
                 { id: 'flash-cards', icon: 'bubble_chart', title: 'Flash Cards', url: '/cards' },
                 { id: 'lessons', icon: 'playlist_add', title: 'Create Lesson', url: '/new-lesson' },
                 { id: 'teach', icon: 'person_pin_circle', title: 'Teach', url: '/teach'},
