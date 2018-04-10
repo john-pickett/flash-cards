@@ -68,8 +68,8 @@ export default {
                 { id: 'flash-cards', icon: 'bubble_chart', title: 'Flash Cards', url: '/cards' },
                 { id: 'lessons', icon: 'playlist_add', title: 'Create Lesson', url: '/new-lesson' },
                 { id: 'teach', icon: 'person_pin_circle', title: 'Teach', url: '/teach'},
-                { id: 'decks', icon: 'space_bar', title: 'Recall', url: '/decks' },
-                { id: 'create-deck', icon: 'add_circle', title: 'Create', url: '/new-deck'}
+                { id: 'decks', icon: 'space_bar', title: 'Recall', url: '/recall' },
+                { id: 'create-deck', icon: 'add_circle', title: 'Create', url: '/create'}
             ],
             miniVariant: false,
             right: true,

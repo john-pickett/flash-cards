@@ -1,9 +1,9 @@
 <template>
-    <v-container grid-list-md text-xs-center>
+    <v-container grid-list-md>
         <v-layout row v-if="!getCurrentDeck">
             <v-flex xs6>
                 <v-card v-if="loading" height="300px">
-                    <h4>Choose a Lesson</h4>
+                    <h4>Choose a Deck To Teach</h4>
                     <div style="margin: auto">
                         <v-progress-circular indeterminate color="primary"></v-progress-circular>
                     </div>
@@ -18,9 +18,10 @@
         </v-layout>
         <v-layout v-if="getCurrentDeck">
             <v-flex xs6>
+                <!-- Current Photo Card -->
                 <v-card height=400>
+                    <h4>Teach</h4>
                     <v-card-media :src="getCurrentDeck.cards[this.counter].url" height=300 contain>
-                    
                     </v-card-media>
                     <v-card-text>
                         {{getCurrentDeck.cards[0].url}}
