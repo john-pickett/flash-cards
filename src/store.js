@@ -12,7 +12,8 @@ const store = new Vuex.Store({
     decks: [],
     currentLesson: null,
     currentDeck: null,
-    loading: false
+    loading: false,
+    newDeck: null
   },
   actions: {
     GRAB_LESSON_DATA: function ({commit}) {
@@ -29,6 +30,21 @@ const store = new Vuex.Store({
                 commit('DONE_LOADING');
                 resolve();
             }))
+        });
+    },
+    CREATE_NEW_DECK: function ({deck}) {
+        commit('YES_LOADING');
+        return new Promise( (resolve, reject) => {
+            axios.post(this.state.apiURL + '/decks', 
+                {deck}
+            ).then( (res) => {
+                console.log(res.data)
+            }).then((axios.get(this.state.apiURL + '/decks').then( (res) => {
+                commit('SET_DECK_DATA', {list: res.data.decks});
+                console.log('got decks');
+                commit('DONE_LOADING');
+                resolve();
+            })))
         });
     },
     SET_CURRENT_LESSON: function ({commit}, lesson) {
