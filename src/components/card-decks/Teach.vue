@@ -19,12 +19,12 @@
         <v-layout v-if="getCurrentDeck">
             <v-flex xs6>
                 <!-- Current Photo Card -->
-                <v-card height=400>
+                <v-card class="pa-3">
                     <h4>Teach</h4>
                     <v-card-media :src="getCurrentDeck.cards[this.counter].url" height=300 contain>
                     </v-card-media>
                     <v-card-text>
-                        {{getCurrentDeck.cards[0].url}}
+                        <!-- {{getCurrentDeck.cards[0].url}} -->
                     </v-card-text>
                     <v-card-actions>
                         <v-btn color="primary" class="right" @click="nextCard">Next</v-btn>
@@ -32,14 +32,16 @@
                 </v-card>
             </v-flex>
             <v-flex xs6>
-                <v-card height=400>
+                <v-card height=455 class="pa-3">
                     <v-card-text>
-                        <p class="card-text">{{getCurrentDeck.cards[this.counter].sentence}}</p>
+                        <!-- <p class="card-text">{{getCurrentDeck.cards[this.counter].sentence}}</p> -->
                         <!-- <p>current: {{getCurrentDeck}}</p> -->
-                        <v-tooltip bottom>
-                            <span slot="activator" class="card-text">{{getCurrentDeck.cards[this.counter].sentence}}</span>
-                            <span class="card-text">The trumpet is yellow</span>
-                        </v-tooltip>
+                        <span class="activator card-text">La trompeta <span class="tooltip">the trumpet</span></span> 
+                        <span class="card-text">está</span>
+                        <span class="activator card-text">amarillo<span class="tooltip">yellow</span></span>
+                        
+                        
+                        
                     </v-card-text>
                 </v-card>
             </v-flex>
@@ -51,7 +53,9 @@
 export default {
     data () {
         return {
-            counter: 0
+            counter: 0,
+            hide1: true,
+            hide2: true
         }
     },
     methods: {
@@ -62,6 +66,14 @@ export default {
         nextCard () {
             console.log('next card')
             this.counter += 1;
+        },
+        toggleText (event) {
+            // console.log(event.target.id)
+            if (event.target.id == 1) {
+                this.hide1 = !this.hide1;
+            } else if (event.target.id == 2) {
+                this.hide2 = !this.hide2;
+            }
         }
     },
     computed: {
@@ -73,6 +85,12 @@ export default {
         },
         getCurrentDeck: function () {
             return this.$store.getters.currentDeck
+        },
+        toolSentence: function () {
+            return this.getCurrentDeck.cards[this.counter].sentence
+        },
+        toolTemplate () {
+            return 
         }
     },
     watch: {
@@ -90,4 +108,51 @@ export default {
         font-size: 22px;
         text-align: center;
     }
+
+    .hidden {
+        display: none;
+    }
+
+    .activator {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        text-decoration: underline dotted gray;
+    }
+
+    .activator .tooltip {
+        padding: 2px;
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+ 
+        /* Position the tooltip text - see examples below! */
+        position: absolute;
+        z-index: 1;
+        top: 100%;
+        left: 50%; 
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 1s;
+
+    }
+
+    .activator:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .activator .tooltip::after {
+    content: " ";
+    position: absolute;
+    bottom: 100%;  /* At the top of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent black transparent;
+}
 </style>
