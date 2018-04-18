@@ -20,7 +20,6 @@
             <v-flex xs6>
                 <!-- Current Photo Card -->
                 <v-card class="pa-3">
-                    <h4>Teach</h4>
                     <v-card-media :src="getCurrentDeck.cards[this.counter].url" height=300 contain>
                     </v-card-media>
                     <v-card-text>
@@ -39,9 +38,6 @@
                         <span class="activator card-text">La trompeta <span class="tooltip">the trumpet</span></span> 
                         <span class="card-text">está</span>
                         <span class="activator card-text">amarillo<span class="tooltip">yellow</span></span>
-                        
-                        
-                        
                     </v-card-text>
                 </v-card>
             </v-flex>

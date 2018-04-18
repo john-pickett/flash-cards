@@ -17,20 +17,25 @@
             </v-flex>
         </v-layout>
         <v-layout row v-if="getCurrentDeck">
-            <v-flex xs6>
+            <v-flex xs12>
                 <!-- Current Photo Card -->
-                <v-card class="pa-3" width=550 height=400px>
-                    <h4>Recall</h4>
-                    <v-card-media :src="getCurrentDeck.cards[this.counter].url" height=300px></v-card-media>
+                <v-card class="pa-3">
+                    <v-card-media :src="getCurrentDeck.cards[this.counter].url" height=300 contain></v-card-media>
+                    <v-card-text>
+                        <p class="card-text">{{getCurrentDeck.cards[this.counter].vocab}}</p>
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-btn color="primary" @click="nextPhoto">Next</v-btn>
+                    </v-card-actions>
                 </v-card>
             </v-flex>
-            <v-flex xs-6>
+            <!-- <v-flex xs-6>
                 <v-card class="pa-3" height="400px">
                     <v-card-media height=1></v-card-media>
                     <v-card-text>
                         <p class="current-sentence">{{getCurrentDeck.cards[this.counter].sentence}}</p>
-                        <!-- <p>{{getCurrentDeck}}</p> -->
-                        <v-layout row justify-center>
+                        <p>{{getCurrentDeck}}</p>
+                        <v-layout row justify-center v-if="userStart">
                             <v-flex xs1 class="text-xs-center" v-for="(letter, i) in answerLength" :key="i">
                                 <v-text-field
                                     :id=letter
@@ -45,13 +50,12 @@
                         </div>
                         <div v-if="wrong" class="wrong">
                             Nope!
-                        </div>
+                        </div> -->
+                        <!-- <v-btn v-if="!userStart" color="primary" @click="startMe">Start</v-btn>
                     </v-card-text>
-                    <v-card-actions>
-                        <v-btn color="primary" @click="nextPhoto">Next</v-btn>
-                    </v-card-actions>
+                    
                 </v-card>
-            </v-flex>
+            </v-flex>  -->
         </v-layout>
     </v-container>
 </template>
@@ -65,17 +69,19 @@ export default {
             currentPhoto: '',
             currentSentence: '',
             counter: 0,
-            correctAnswer: '',
+            // correctAnswer: '',
             correct: null,
             wrong: null,
             userInput: [],
-            // photos: [
-            //     {title: 'dancing-women', answer: 'bailan', sentence: 'Las mujeres _____'},
-            //     {title: 'curious-kitten', answer: 'gatito', sentence: 'El _____ dice "Hola!"'},
-            //     {title: 'dog-beach', answer: 'playa', sentence: 'El perro esta en la ____'},
-            //     {title: 'sleeping-cat', answer: 'duerme', sentence: 'El gato ____'},
-            //     {title: 'yellow-hat', answer: 'amarillo', sentence: 'El sombrero esta ____' }
-            // ]
+            userStart: true
+            /* {
+                    "id": 1,
+                    "title": "boy-trumpet",
+                    "sentence": "La trompeta esta amarillo",
+                    "url": "http://lorempicsum.com/up/627/300/1",
+                    "answer": "blue"
+                }
+            */
         }
     },
     methods: {
@@ -90,6 +96,8 @@ export default {
             //this.correctAnswer = this.photos[this.counter].answer;
             // this.currentSentence = this.photos[this.counter].sentence;
             this.currentSentence = this.getCurrentDeck.cards[this.counter].sentence
+            console.log(this.currentSentence)
+            
             document.getElementById('1').focus();
         },
         nextInput: function (event) {
@@ -108,6 +116,9 @@ export default {
             // console.log(event.target.id);
             this.$store.dispatch('SET_CURRENT_DECK', event.target.id);
         },
+        startMe () {
+            this.userStart = true;
+        }
     },
     watch: {
         userInput: function () {
@@ -125,9 +136,12 @@ export default {
          },
     },
     computed: {
+        // correctAnswer: function () {
+        //     return this.getCurrentDeck.cards[this.counter].answer
+        // },
         answerLength: function () {
-            return 6;
-            // return this.getCurrentDeck.cards[this.counter].sentence.length;
+            // return this.correctAnswer.length;
+            return 8;
         },
         userAnswer: function () {
             return this.userInput.join('');
@@ -147,9 +161,9 @@ export default {
     },
     mounted () {
         // this.currentPhoto = this.photos[0].title;
-        // this.correctAnswer = this.photos[0].answer;
         // // this.currentSentence = this.photos[0].sentence;
         // this.currentSentence = getCurrentDeck.cards[this.counter].sentence
+        // this.correctAnswer = 'amarillo';
     }
 }
 </script>

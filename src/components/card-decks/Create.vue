@@ -23,16 +23,16 @@
                 <v-card v-if="hasTitle && !isViewingCurrentDeck" class="pa-3" width="580" id="currentCard">
                     <span class="headline">Current Card</span>
                     <div v-if="selectedPhoto">
-                        {{selectedPhoto.title}}
+                        <!-- {{selectedPhoto.title}} -->
                         <v-card-media :src="selectedPhoto.url" height=300>
                         </v-card-media>
                     </div>
                     <v-card-text>
-                        <p>Write a sentence that describes the photo.</p>
+                        <p>Give the word for the card</p>
                     </v-card-text>
                     <v-text-field
-                        label="Sentence"
-                        v-model="currentSentence"
+                        label="Vocabulary Word"
+                        v-model="currentVocab"
                     ></v-text-field>
                     <v-card-actions>
                         <v-btn color="secondary" @click="viewCurrentDeck">View Deck</v-btn>
@@ -45,7 +45,7 @@
                     <ul v-for="(card, i) in currentDeck" :key="card.id">
                         <li>Card {{i + 1}}</li>
                         <li><img :src="card.url" /></li>
-                        <li>{{card.sentence}}</li>
+                        <li>{{card.vocab}}</li>
                     </ul>
                     <v-card-actions>
                         <v-btn color="secondary" @click="backToCreate">Add More Cards</v-btn>
@@ -102,6 +102,7 @@ export default {
             currentDeck: [],
             counter: 0,
             currentSentence: '',
+            currentVocab: '',
             isViewingCurrentDeck: false
         }
     },
@@ -113,14 +114,14 @@ export default {
             console.log('go search')
             setTimeout(() => {
                 this.searchResults = [
-                    { id: 1, title: 'Curious Kitten', url: 'http://lorempicsum.com/up/627/300/1' },
-                    { id: 2, title: 'Dancing Women', url: 'http://lorempicsum.com/up/627/300/2' },
-                    { id: 3, title: 'Dog Beach', url: 'http://lorempicsum.com/up/627/300/3' },
-                    { id: 4, title: 'Green Jacket', url: 'http://lorempicsum.com/up/627/300/4' },
-                    { id: 5, title: 'Green Trees', url: 'http://lorempicsum.com/up/627/300/5' },
-                    { id: 6, title: 'Ice Cream', url: 'http://lorempicsum.com/up/627/300/6' },
-                    { id: 7, title: 'Sleeping Cat', url: 'http://lorempicsum.com/up/627/300/7' },
-                    { id: 8, title: 'Yellow Hat', url: 'http://lorempicsum.com/up/627/300/8' }
+                    { id: 1, url: 'http://lorempicsum.com/up/627/300/1' },
+                    { id: 2, url: 'http://lorempicsum.com/up/627/300/2' },
+                    { id: 3, url: 'http://lorempicsum.com/up/627/300/3' },
+                    { id: 4, url: 'http://lorempicsum.com/up/627/300/4' },
+                    { id: 5, url: 'http://lorempicsum.com/up/627/300/5' },
+                    { id: 6, url: 'http://lorempicsum.com/up/627/300/6' },
+                    { id: 7, url: 'http://lorempicsum.com/up/627/300/7' },
+                    { id: 8, url: 'http://lorempicsum.com/up/627/300/8' }
                 ]
             }, 100)
         },
@@ -142,13 +143,12 @@ export default {
             console.log('create next card')
             this.currentDeck[this.counter] = {
                 id:  this.counter,
-                title: this.selectedPhoto.title,
-                sentence: this.currentSentence,
-                url: this.selectedPhoto.url
+                url: this.selectedPhoto.url,
+                vocab: this.currentVocab
             }
             this.counter += 1;
             this.selectedPhoto = null;
-            this.currentSentence = '';
+            this.currentVocab = '';
             this.userSearch = '';
             this.searchResults = [];
         },
@@ -178,6 +178,7 @@ export default {
                 cards: this.currentDeck
             }).then( (res) => {
                 console.log('success ' + res.data)
+                alert('deck saved!')
             }, (e) => {
                 console.log(e)
             })
