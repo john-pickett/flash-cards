@@ -95,6 +95,10 @@ export default {
                 this.counter = 0;
             }
         }
+    },
+    mounted () {
+        // clears currentDeck when user switches page
+        this.$store.commit('CLEAR_CURRENT_DECK');
     }
 }
 </script>

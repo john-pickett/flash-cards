@@ -22,10 +22,17 @@
                 <v-card class="pa-3">
                     <v-card-media :src="getCurrentDeck.cards[this.counter].url" height=300 contain></v-card-media>
                     <v-card-text>
-                        <p class="card-text">{{getCurrentDeck.cards[this.counter].vocab}}</p>
+                        <div id="vocab-word" >
+                            <transition name="fade">
+                            <p class="card-text" v-show="showVocab">
+                                {{getCurrentDeck.cards[this.counter].vocab}}
+                            </p>
+                            </transition>
+                        </div>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn color="primary" @click="nextPhoto">Next</v-btn>
+                        <v-btn color="secondary" @click="showVocab = true" depressed>Show Vocabulary Word</v-btn>
+                        <v-btn color="primary" @click="nextPhoto" depressed>Next</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -73,7 +80,8 @@ export default {
             correct: null,
             wrong: null,
             userInput: [],
-            userStart: true
+            userStart: true,
+            showVocab: false,
             /* {
                     "id": 1,
                     "title": "boy-trumpet",
@@ -86,6 +94,7 @@ export default {
     },
     methods: {
         nextPhoto: function () {
+            this.showVocab = false;
             this.userInput = [];
             this.counter += 1;
             if (this.counter >= this.getCurrentDeck.cards.length) {
@@ -160,10 +169,11 @@ export default {
 
     },
     mounted () {
-        // this.currentPhoto = this.photos[0].title;
-        // // this.currentSentence = this.photos[0].sentence;
-        // this.currentSentence = getCurrentDeck.cards[this.counter].sentence
-        // this.correctAnswer = 'amarillo';
+        // clears currentDeck when user switches between pages
+        this.$store.commit('CLEAR_CURRENT_DECK');
+    },
+    updated () {
+        
     }
 }
 </script>
@@ -177,6 +187,26 @@ export default {
     .correct, .wrong {
         font-size: 22px;
         text-align: center;
+    }
+
+    #vocab-word {
+        height: 25px;
+    }
+
+    .fade-enter-active {
+        transition: opacity .5s;
+    }
+
+    .fade-leave-active {
+        transition: opacity 0;
+    }
+
+    .fade-leave {
+        opacity: 0;
+    }
+
+    .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        opacity: 0;
     }
 
 </style>
