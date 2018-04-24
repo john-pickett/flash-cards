@@ -6,6 +6,7 @@ import CreateLesson from '@/components/flash-cards/CreateLesson';
 import Recall from '@/components/card-decks/Recall';
 import Create from '@/components/card-decks/Create';
 import Teach from '@/components/card-decks/Teach';
+import NounDrill from '@/components/card-decks/NounDrill';
 
 // import Test from '@/components/Test';
 
@@ -42,6 +43,11 @@ export default new Router({
         path: '/teach',
         name: 'Teach',
         component: Teach
+    },
+    {
+        path: '/nouns',
+        name: 'NounDrill',
+        component: NounDrill
     }
   ]
 })

@@ -65,11 +65,12 @@ export default {
             fixed: false,
             menuItems: [
                 { id: 'home', icon: 'home', title: 'Home', url: '/'},
-                { id: 'flash-cards', icon: 'bubble_chart', title: 'Flash Cards', url: '/cards' },
-                { id: 'lessons', icon: 'playlist_add', title: 'Create Lesson', url: '/new-lesson' },
+                // { id: 'flash-cards', icon: 'bubble_chart', title: 'Flash Cards', url: '/cards' },
+                // { id: 'lessons', icon: 'playlist_add', title: 'Create Lesson', url: '/new-lesson' },
                 { id: 'teach', icon: 'person_pin_circle', title: 'Teach', url: '/teach'},
                 { id: 'decks', icon: 'space_bar', title: 'Recall', url: '/recall' },
-                { id: 'create-deck', icon: 'add_circle', title: 'Create', url: '/create'}
+                { id: 'create-deck', icon: 'add_circle', title: 'Create', url: '/create'},
+                { id: 'noun-drill', icon: 'play_for_work', title: 'Noun Drill', url: '/nouns' }
             ],
             miniVariant: false,
             right: true,
