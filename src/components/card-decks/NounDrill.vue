@@ -242,16 +242,35 @@ export default {
             // } else {
             //     elem.classList.add('mytextwrong')
             // }
+        },
+        clearInputs: function () {
+            for (let i = 0; i < 12; i++) {
+                let elem = document.getElementById('ans' + i);
+                elem.value = '';
+                elem.classList.remove('mytextcorrect');
+                elem.classList.remove('mytextwrong');
+                // hide spans ans8correct
+                let span = document.getElementById('ans' + i + 'correct')
+                span.classList.remove('spancorrect')
+                span.classList.add('answerspan')
+                span = document.getElementById('ans' + i + 'wrong')
+                span.classList.remove('spanwrong')
+                span.classList.add('answerspan')
+            }
+            
         }
     },
     watch: {
         chosenGender: function () {
             if (this.chosenGender === 'Feminine') {
                 this.exampleWord = 'puella'
+                this.clearInputs()
             } else if (this.chosenGender === 'Masculine') {
                 this.exampleWord = 'hortus'
+                this.clearInputs()
             } else if (this.chosenGender === 'Neuter') {
                 this.exampleWord = 'regnum'
+                this.clearInputs()
             }
         }
     }
@@ -307,7 +326,7 @@ export default {
     }
 
     .answerspan {
-        visibility: hidden;
+        visibility: hidden !important;
     }
 
     .spancorrect {
