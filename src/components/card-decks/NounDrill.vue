@@ -10,8 +10,7 @@
                                 :items="genders"
                                 label="Choose Gender"
                                 v-model="chosenGender"
-                                value="feminine"
-                                
+                                single-line
                             ></v-select>
                             <noun-table :gender="chosenGender"></noun-table>
                         </v-flex>
@@ -20,7 +19,7 @@
                                 <thead>
                                     <tr>
                                         <th></th>
-                                        <th>puella, <em>fem</em></th>
+                                        <th>Vocab Word: {{exampleWord}}</th>
                                     </tr>
                                     <tr>
                                         <th></th>
@@ -32,138 +31,138 @@
                                     <tr>
                                         <td valign="top">Nominative</td>
                                         <td>
-                                            <input type="text" name="mynom" id="fem0" class="mytext"
+                                            <input type="text" name="mynom" id="ans0" class="mytext"
                                             @focus="onFocus($event)" @keyup="watchEntry($event)"
                                             @blur="validateEntry($event)"
                                             />
                                             <div class="spancon">
-                                                <span id="fem0correct" class="answerspan">Correct</span>
-                                                <span id="fem0wrong" class="answerspan">Wrong</span>
+                                                <span id="ans0correct" class="answerspan">Correct</span>
+                                                <span id="ans0wrong" class="answerspan">Wrong</span>
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="text" name="mynomp" id="fem1" class="mytext"
+                                            <input type="text" name="mynomp" id="ans1" class="mytext"
                                             @focus="onFocus($event)"  @keyup="watchEntry($event)"
                                             @blur="validateEntry($event)"
                                             />
                                             <div class="spancon">
-                                                <span id="fem1correct" class="answerspan">Correct</span>
-                                                <span id="fem1wrong" class="answerspan">Wrong</span>
+                                                <span id="ans1correct" class="answerspan">Correct</span>
+                                                <span id="ans1wrong" class="answerspan">Wrong</span>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td valign="top">Genitive</td>
                                         <td>
-                                            <input type="text" name="mygen" id="fem2" class="mytext"
+                                            <input type="text" name="mygen" id="ans2" class="mytext"
                                             @focus="onFocus($event)"  @keyup="watchEntry($event)"
                                             @blur="validateEntry($event)"
                                             />
                                             <div class="spancon">
-                                                <span id="fem2correct" class="answerspan">Correct</span>
-                                                <span id="fem2wrong" class="answerspan">Wrong</span>
+                                                <span id="ans2correct" class="answerspan">Correct</span>
+                                                <span id="ans2wrong" class="answerspan">Wrong</span>
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="text" name="mygenp" id="fem3" class="mytext"
+                                            <input type="text" name="mygenp" id="ans3" class="mytext"
                                             @focus="onFocus($event)"  @keyup="watchEntry($event)"
                                             @blur="validateEntry($event)"
                                             />
                                             <div class="spancon">
-                                                <span id="fem3correct" class="answerspan">Correct</span>
-                                                <span id="fem3wrong" class="answerspan">Wrong</span>
+                                                <span id="ans3correct" class="answerspan">Correct</span>
+                                                <span id="ans3wrong" class="answerspan">Wrong</span>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td valign="top">Dative</td>
                                         <td>
-                                            <input type="text" name="mydat" id="fem4" class="mytext"
+                                            <input type="text" name="mydat" id="ans4" class="mytext"
                                             @focus="onFocus($event)"  @keyup="watchEntry($event)"
                                             @blur="validateEntry($event)"
                                             />
                                             <div class="spancon">
-                                                <span id="fem4correct" class="answerspan">Correct</span>
-                                                <span id="fem4wrong" class="answerspan">Wrong</span>
+                                                <span id="ans4correct" class="answerspan">Correct</span>
+                                                <span id="ans4wrong" class="answerspan">Wrong</span>
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="text" name="mydatp" id="fem5" class="mytext"
+                                            <input type="text" name="mydatp" id="ans5" class="mytext"
                                             @focus="onFocus($event)"  @keyup="watchEntry($event)"
                                             @blur="validateEntry($event)"
                                             />
                                             <div class="spancon">
-                                                <span id="fem5correct" class="answerspan">Correct</span>
-                                                <span id="fem5wrong" class="answerspan">Wrong</span>
+                                                <span id="ans5correct" class="answerspan">Correct</span>
+                                                <span id="ans5wrong" class="answerspan">Wrong</span>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td valign="top">Accusative</td>
                                         <td>
-                                            <input type="text" name="myacc" id="fem6" class="mytext"
+                                            <input type="text" name="myacc" id="ans6" class="mytext"
                                             @focus="onFocus($event)"  @keyup="watchEntry($event)"
                                             @blur="validateEntry($event)"
                                             />
                                             <div class="spancon">
-                                                <span id="fem6correct" class="answerspan">Correct</span>
-                                                <span id="fem6wrong" class="answerspan">Wrong</span>
+                                                <span id="ans6correct" class="answerspan">Correct</span>
+                                                <span id="ans6wrong" class="answerspan">Wrong</span>
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="text" name="myaccp" id="fem7" class="mytext"
+                                            <input type="text" name="myaccp" id="ans7" class="mytext"
                                             @focus="onFocus($event)"  @keyup="watchEntry($event)"
                                             @blur="validateEntry($event)"
                                             />
                                             <div class="spancon">
-                                                <span id="fem7correct" class="answerspan">Correct</span>
-                                                <span id="fem7wrong" class="answerspan">Wrong</span>
+                                                <span id="ans7correct" class="answerspan">Correct</span>
+                                                <span id="ans7wrong" class="answerspan">Wrong</span>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td valign="top">Ablative</td>
                                         <td>
-                                            <input type="text" name="myabl" id="fem8" class="mytext"
+                                            <input type="text" name="myabl" id="ans8" class="mytext"
                                             @focus="onFocus($event)"  @keyup="watchEntry($event)"
                                             @blur="validateEntry($event)"
                                             />
                                             <div class="spancon">
-                                                <span id="fem8correct" class="answerspan">Correct</span>
-                                                <span id="fem8wrong" class="answerspan">Wrong</span>
+                                                <span id="ans8correct" class="answerspan">Correct</span>
+                                                <span id="ans8wrong" class="answerspan">Wrong</span>
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="text" name="myablp" id="fem9" class="mytext"
+                                            <input type="text" name="myablp" id="ans9" class="mytext"
                                             @focus="onFocus($event)"  @keyup="watchEntry($event)"
                                             @blur="validateEntry($event)"
                                             />
                                             <div class="spancon">
-                                                <span id="fem9correct" class="answerspan">Correct</span>
-                                                <span id="fem9wrong" class="answerspan">Wrong</span>
+                                                <span id="ans9correct" class="answerspan">Correct</span>
+                                                <span id="ans9wrong" class="answerspan">Wrong</span>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td valign="top">Vocative</td>
                                         <td>
-                                            <input type="text" name="myvoc" id="fem10" class="mytext"
+                                            <input type="text" name="myvoc" id="ans10" class="mytext"
                                             @focus="onFocus($event)"  @keyup="watchEntry($event)"
                                             @blur="validateEntry($event)"
                                             />
                                             <div class="spancon">
-                                                <span id="fem10correct" class="answerspan">Correct</span>
-                                                <span id="fem10wrong" class="answerspan">Wrong</span>
+                                                <span id="ans10correct" class="answerspan">Correct</span>
+                                                <span id="ans10wrong" class="answerspan">Wrong</span>
                                             </div>
                                         </td>
                                         <td>
-                                            <input type="text" name="myvocp" id="fem11" class="mytext"
+                                            <input type="text" name="myvocp" id="ans11" class="mytext"
                                             @focus="onFocus($event)"  @keyup="watchEntry($event)"
                                             @blur="validateEntry($event)"
                                             />
                                             <div class="spancon">
-                                                <span id="fem11correct" class="answerspan">Correct</span>
-                                                <span id="fem11wrong" class="answerspan">Wrong</span>
+                                                <span id="ans11correct" class="answerspan">Correct</span>
+                                                <span id="ans11wrong" class="answerspan">Wrong</span>
                                             </div>
                                         </td>
                                     </tr>
@@ -186,9 +185,14 @@ export default {
     data () {
         return {
             genders: ['Feminine', 'Masculine', 'Neuter'],
-            chosenGender: 'feminine',
+            exampleWord: 'puella',
+            chosenGender: 'Feminine',
             femAnswers: [ 'puella', 'puellae', 'puellae', 'puellarum', 'puellae', 'puellis', 'puellam', 'puellas',
-                'puella', 'puellis', 'puella', 'puellae' ]
+                'puella', 'puellis', 'puella', 'puellae' ],
+            mascAnswers: [ 'hortus', 'horti', 'horti', 'hortorum', 'horto', 'hortis', 'hortum', 'hortos', 'horto', 
+                'hortis', 'horte', 'horti'],
+            neuAnswers: [ 'regnum', 'regna', 'regni', 'regnorum', 'regno', 'regnis', 'regnum', 'regna', 'regno',
+                'regnis', 'regnum', 'regna']
         }
     },
     methods: {
@@ -201,20 +205,29 @@ export default {
         watchEntry: function (event) {
             let elem = document.getElementById(event.target.id);
             let counter = elem.id.slice(3);
-            if (elem.value === this.femAnswers[counter]) {
+            let answers;
+            if (this.chosenGender === 'Feminine') {
+                answers = this.femAnswers
+            } else if (this.chosenGender === 'Masculine') {
+                answers = this.mascAnswers
+            } else if (this.chosenGender === 'Neuter') {
+                answers = this.neuAnswers
+            }
+
+            if (elem.value === answers[counter]) {
                 elem.classList.add('mytextcorrect')
-                let correctSpan = document.getElementById('fem' + counter + 'correct');
+                let correctSpan = document.getElementById('ans' + counter + 'correct');
                 correctSpan.classList.remove('answerspan')
                 correctSpan.classList.add('spancorrect')
-                let wrongSpan = document.getElementById('fem' + counter + 'wrong');
+                let wrongSpan = document.getElementById('ans' + counter + 'wrong');
                 wrongSpan.classList.remove('spanwrong');
                 wrongSpan.classList.add('answerspan');
-                let next = document.getElementById('fem' + (parseInt(counter) + 1));
+                let next = document.getElementById('ans' + (parseInt(counter) + 1));
                 next.focus();
-            } else if (elem.value.length >= this.femAnswers[counter].length) {
+            } else if (elem.value.length >= answers[counter].length) {
                 console.log('wrong')
                 elem.classList.add('mytextwrong');
-                let thisSpan = document.getElementById('fem' + counter + 'wrong');
+                let thisSpan = document.getElementById('ans' + counter + 'wrong');
                 thisSpan.classList.remove('answerspan')
                 thisSpan.classList.add('spanwrong')
             }
@@ -224,15 +237,23 @@ export default {
             let elem = document.getElementById(event.target.id);
             let counter = elem.id.slice(3);
             // console.log(counter)
-            if (elem.value === this.femAnswers[counter]) {
-                elem.classList.add('mytextcorrect')
-            } else {
-                elem.classList.add('mytextwrong')
-            }
+            // if (elem.value === this.femAnswers[counter]) {
+            //     elem.classList.add('mytextcorrect')
+            // } else {
+            //     elem.classList.add('mytextwrong')
+            // }
         }
     },
     watch: {
-
+        chosenGender: function () {
+            if (this.chosenGender === 'Feminine') {
+                this.exampleWord = 'puella'
+            } else if (this.chosenGender === 'Masculine') {
+                this.exampleWord = 'hortus'
+            } else if (this.chosenGender === 'Neuter') {
+                this.exampleWord = 'regnum'
+            }
+        }
     }
 }
 </script>
