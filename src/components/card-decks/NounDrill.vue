@@ -168,6 +168,8 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <v-btn v-if="chosenGender !== 'Neuter'" depressed @click="nextSet" class="primary right">Next</v-btn>
+                            <v-btn v-if="chosenGender === 'Neuter'" disabled class="primary right">Next</v-btn>
                         </v-flex>
                     </v-layout>
                 </v-card>
@@ -258,6 +260,13 @@ export default {
                 span.classList.add('answerspan')
             }
             
+        },
+        nextSet: function () {
+            if (this.chosenGender === 'Feminine') {
+                this.chosenGender = 'Masculine'
+            } else if (this.chosenGender === 'Masculine') {
+                this.chosenGender = 'Neuter'
+            }
         }
     },
     watch: {

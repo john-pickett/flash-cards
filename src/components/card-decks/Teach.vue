@@ -17,30 +17,62 @@
             </v-flex>
         </v-layout>
         <v-layout v-if="getCurrentDeck">
-            <v-flex xs6>
+            <v-flex xs12 v-if="!viewAll">
                 <!-- Current Photo Card -->
                 <v-card class="pa-3">
+                    <v-layout>
+                        <v-flex xs3>
+                            <v-checkbox
+                                label="View All"
+                                v-model="viewAll"
+                            ></v-checkbox>
+                        </v-flex>
+                    </v-layout>
                     <v-card-media :src="getCurrentDeck.cards[this.counter].url" height=300 contain>
                     </v-card-media>
                     <v-card-text>
                         <!-- {{getCurrentDeck.cards[0].url}} -->
+                        <p class="card-text">Vocab Word: {{getCurrentDeck.cards[this.counter].vocab}} </p>
                     </v-card-text>
                     <v-card-actions>
                         <v-btn color="primary" class="right" @click="nextCard">Next</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-flex>
-            <v-flex xs6>
+            <v-flex xs12 v-if="viewAll">
+                <v-card class="pa-3">
+                    <v-layout>
+                        <v-flex xs3>
+                            <v-checkbox
+                                label="View All"
+                                v-model="viewAll"
+                            ></v-checkbox>
+                        </v-flex>
+                    </v-layout>
+                    <v-list v-for="card in getCurrentDeck.cards" :key="card.id">
+                        <v-card-media :src="card.url" height=300 contain>
+                        </v-card-media>
+                        <v-card-text>
+                            <!-- {{getCurrentDeck.cards[0].url}} -->
+                            <p class="card-text">Vocab Word: {{card.vocab}} </p>
+                        </v-card-text>
+                        <v-card-actions>
+                        
+                        </v-card-actions>
+                    </v-list>
+                </v-card>
+            </v-flex>
+            <!-- <v-flex xs6>
                 <v-card height=455 class="pa-3">
                     <v-card-text>
-                        <!-- <p class="card-text">{{getCurrentDeck.cards[this.counter].sentence}}</p> -->
-                        <!-- <p>current: {{getCurrentDeck}}</p> -->
+                        <p class="card-text">{{getCurrentDeck.cards[this.counter].sentence}}</p> 
+                        <p>current: {{getCurrentDeck}}</p> 
                         <span class="activator card-text">La trompeta <span class="tooltip">the trumpet</span></span> 
                         <span class="card-text">está</span>
                         <span class="activator card-text">amarillo<span class="tooltip">yellow</span></span>
                     </v-card-text>
                 </v-card>
-            </v-flex>
+            </v-flex> -->
         </v-layout>
     </v-container>
 </template>
@@ -51,7 +83,8 @@ export default {
         return {
             counter: 0,
             hide1: true,
-            hide2: true
+            hide2: true,
+            viewAll: false
         }
     },
     methods: {

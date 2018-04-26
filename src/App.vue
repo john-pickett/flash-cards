@@ -9,7 +9,7 @@
             enable-resize-watcher
             fixed
             app
-            width="250"
+            width="200"
             >
                 <v-list v-for="item in menuItems" :key="item.title">
                     <v-list-tile color="blue" :to="item.url">

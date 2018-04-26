@@ -81,7 +81,7 @@ export default {
             wrong: null,
             userInput: [],
             userStart: true,
-            showVocab: false,
+            showVocab: false
             /* {
                     "id": 1,
                     "title": "boy-trumpet",
